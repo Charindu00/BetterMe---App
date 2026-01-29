@@ -1,0 +1,71 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# LEARNING POINT: application.yml vs application.properties
+# ───────────────────────────────────────────────────────────────────────────
+# Both do the same thing, but .yml uses YAML format which is:
+# - More readable (uses indentation like Python)
+# - Supports nested properties naturally
+# - Industry standard for Spring Boot
+# ═══════════════════════════════════════════════════════════════════════════
+
+# Application Name
+spring:
+  application:
+    name: betterme-backend
+  
+  # ─────────────────────────────────────────────────────────────────────────
+  # DATABASE CONFIGURATION
+  # ─────────────────────────────────────────────────────────────────────────
+  # We're using H2 (in-memory database) for development
+  # Why? No installation needed! Data resets on restart (good for testing)
+  # In production, we'll switch to PostgreSQL
+  
+  datasource:
+    url: jdbc:h2:mem:bettermedb          # "mem" = in-memory
+    driver-class-name: org.h2.Driver
+    username: sa                          # Default H2 username
+    password:                             # Empty password for development
+  
+  # H2 Console - A web interface to see your database
+  h2:
+    console:
+      enabled: true                       # Access at /h2-console
+      path: /h2-console
+  
+  # ─────────────────────────────────────────────────────────────────────────
+  # JPA / HIBERNATE CONFIGURATION  
+  # ─────────────────────────────────────────────────────────────────────────
+  # JPA = Java Persistence API (standard for database operations)
+  # Hibernate = The actual implementation of JPA
+  
+  jpa:
+    hibernate:
+      ddl-auto: create-drop              # Auto-create tables from entities
+      # Options: create-drop, create, update, validate, none
+      # create-drop: Create tables on start, drop on shutdown (good for dev)
+    show-sql: true                       # Show SQL queries in console (for learning!)
+    properties:
+      hibernate:
+        format_sql: true                 # Pretty print SQL
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SERVER CONFIGURATION
+# ─────────────────────────────────────────────────────────────────────────────
+server:
+  port: 8080                             # API will be at http://localhost:8080
+
+# ─────────────────────────────────────────────────────────────────────────────
+# JWT CONFIGURATION (for authentication)
+# ─────────────────────────────────────────────────────────────────────────────
+# SECURITY NOTE: In production, use environment variables, not hardcoded values!
+# This is a base64-encoded secret key (required by JJWT library)
+jwt:
+  secret: bXlTdXBlclNlY3JldEtleUZvckpXVHRva2VuR2VuZXJhdGlvblRoaXNTaG91bGRCZUxvbmdFbm91Z2gxMjM0NTY3ODk=
+  expiration: 86400000                   # 24 hours in milliseconds
+
+# ─────────────────────────────────────────────────────────────────────────────
+# GEMINI AI CONFIGURATION
+# ─────────────────────────────────────────────────────────────────────────────
+gemini:
+  api:
+    key: ${GEMINI_API_KEY:your-api-key-here}  # Use environment variable
+    url: https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent
