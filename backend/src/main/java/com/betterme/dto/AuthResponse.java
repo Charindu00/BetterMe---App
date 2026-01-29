@@ -21,9 +21,11 @@ import lombok.NoArgsConstructor;
 public class AuthResponse {
 
     private String token; // JWT token
+    @Builder.Default
     private String type = "Bearer"; // Token type (always "Bearer" for JWT)
     private Long id; // User ID
     private String name; // User name
     private String email; // User email
+    private String role; // User role (USER or ADMIN)
     private String message; // Success/error message
 }

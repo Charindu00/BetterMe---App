@@ -83,6 +83,20 @@ public class User implements UserDetails {
 
     /**
      * ─────────────────────────────────────────────────────────────────────
+     * USER ROLE
+     * ─────────────────────────────────────────────────────────────────────
+     * Determines access level: USER or ADMIN
+     * 
+     * @Enumerated(STRING) stores the enum as text ("USER", "ADMIN")
+     * @Builder.Default ensures default value works with Lombok builder
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
+    private Role role = Role.USER;
+
+    /**
+     * ─────────────────────────────────────────────────────────────────────
      * TIMESTAMPS
      * ─────────────────────────────────────────────────────────────────────
      * Good practice: Always track when records are created/updated
@@ -122,9 +136,9 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Returns user's roles/permissions
-        // For simplicity, everyone has "USER" role
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        // Returns user's roles/permissions based on their actual role
+        // Spring Security expects "ROLE_" prefix
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
     @Override

@@ -1,0 +1,38 @@
+# ╔══════════════════════════════════════════════════════════════════════════╗
+# ║ LEARNING POINT: .dockerignore                                             ║
+# ╠══════════════════════════════════════════════════════════════════════════╣
+# ║ Like .gitignore, but for Docker builds.                                  ║
+# ║ Excludes files from the "build context" sent to Docker daemon.           ║
+# ║                                                                          ║
+# ║ Benefits:                                                                ║
+# ║ 1. Faster builds (less data to transfer)                                ║
+# ║ 2. Smaller images                                                        ║
+# ║ 3. Prevents accidentally including secrets/config                        ║
+# ╚══════════════════════════════════════════════════════════════════════════╝
+
+# Build output (we rebuild inside container)
+target/
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+
+# Git
+.git/
+.gitignore
+
+# Logs
+*.log
+logs/
+
+# Local configuration (don't include secrets!)
+application-local.yml
+.env
+
+# Test files
+src/test/
+
+# Documentation
+*.md
+!README.md

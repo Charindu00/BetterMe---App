@@ -1,0 +1,27 @@
+# ╔══════════════════════════════════════════════════════════════════════════╗
+# ║ DEVELOPMENT ONLY: PostgreSQL for Local Development                       ║
+# ╠══════════════════════════════════════════════════════════════════════════╣
+# ║ Use this when developing locally:                                        ║
+# ║   docker-compose -f docker-compose.dev.yml up -d                         ║
+# ║                                                                          ║
+# ║ Then run Spring Boot normally:                                           ║
+# ║   cd backend && mvn spring-boot:run                                      ║
+# ╚══════════════════════════════════════════════════════════════════════════╝
+
+services:
+  betterme-db:
+    image: postgres:15-alpine
+    container_name: betterme-db-dev
+    environment:
+      POSTGRES_DB: betterme
+      POSTGRES_USER: betterme
+      POSTGRES_PASSWORD: betterme123
+    ports:
+      - "5432:5432"
+    volumes:
+      - betterme-dev-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  betterme-dev-data:
+    name: betterme-postgres-dev-data

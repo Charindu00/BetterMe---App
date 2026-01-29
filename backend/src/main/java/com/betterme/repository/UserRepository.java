@@ -1,5 +1,6 @@
 package com.betterme.repository;
 
+import com.betterme.model.Role;
 import com.betterme.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -30,7 +31,7 @@ import java.util.Optional;
  * ║ - existsById(id) → Check if exists ║
  * ╚══════════════════════════════════════════════════════════════════════════╝
  */
-@Repository // Marks this as a data access component
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
     /**
@@ -40,15 +41,16 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * Spring generates SQL from method name! (Query Method Derivation)
      * 
      * findByEmail → SELECT * FROM users WHERE email = ?
-     * 
-     * Optional<User> means it might return null (user not found)
-     * This prevents NullPointerException!
      */
     Optional<User> findByEmail(String email);
 
     /**
      * Check if email exists (for registration validation)
-     * existsByEmail → SELECT EXISTS(SELECT 1 FROM users WHERE email = ?)
      */
     Boolean existsByEmail(String email);
+
+    /**
+     * Count users by role (for admin stats)
+     */
+    long countByRole(Role role);
 }

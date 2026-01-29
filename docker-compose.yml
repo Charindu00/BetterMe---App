@@ -1,0 +1,71 @@
+# ╔══════════════════════════════════════════════════════════════════════════╗
+# ║ LEARNING POINT: Docker Compose                                            ║
+# ╠══════════════════════════════════════════════════════════════════════════╣
+# ║ Docker Compose orchestrates MULTIPLE containers as one application.      ║
+# ║                                                                          ║
+# ║ Instead of running:                                                      ║
+# ║   docker run postgres...                                                 ║
+# ║   docker run spring-boot... --link postgres                              ║
+# ║                                                                          ║
+# ║ Just run: docker-compose up                                              ║
+# ║                                                                          ║
+# ║ Compose handles:                                                         ║
+# ║ - Starting containers in correct order (depends_on)                      ║
+# ║ - Creating network for containers to communicate                         ║
+# ║ - Setting up volumes for data persistence                                ║
+# ╚══════════════════════════════════════════════════════════════════════════╝
+
+services:
+  # ─────────────────────────────────────────────────────────────────────
+  # PostgreSQL Database
+  # ─────────────────────────────────────────────────────────────────────
+  betterme-db:
+    image: postgres:15-alpine # Alpine = smaller image
+    container_name: betterme-db
+    environment:
+      POSTGRES_DB: betterme
+      POSTGRES_USER: betterme
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-betterme123} # Use env var or default
+    ports:
+      - "5432:5432" # Expose for local development tools
+    volumes:
+      # Named volume = data persists even if container is deleted!
+      - betterme-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U betterme -d betterme" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ─────────────────────────────────────────────────────────────────────
+  # Spring Boot API
+  # ─────────────────────────────────────────────────────────────────────
+  betterme-api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: betterme-api
+    environment:
+      # Spring profile for Docker
+      SPRING_PROFILES_ACTIVE: docker
+      # Database connection (uses service name as hostname!)
+      SPRING_DATASOURCE_URL: jdbc:postgresql://betterme-db:5432/betterme
+      SPRING_DATASOURCE_USERNAME: betterme
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-betterme123}
+      # JWT Secret (should be in .env for production!)
+      JWT_SECRET: ${JWT_SECRET:-bXlzdXBlcnNlY3JldGtleWZvcmp3dHRva2VuZ2VuZXJhdGlvbjEyMzQ1Njc4OQ==}
+      # Admin credentials
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@betterme.com}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin123}
+    ports:
+      - "8080:8080"
+    depends_on:
+      betterme-db:
+        condition: service_healthy # Wait for DB to be ready!
+    restart: unless-stopped
+
+# Named volumes persist data outside containers
+volumes:
+  betterme-data:
+    name: betterme-postgres-data

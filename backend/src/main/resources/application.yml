@@ -1,71 +1,69 @@
 # ═══════════════════════════════════════════════════════════════════════════
-# LEARNING POINT: application.yml vs application.properties
+# LEARNING POINT: Spring Profiles
 # ───────────────────────────────────────────────────────────────────────────
-# Both do the same thing, but .yml uses YAML format which is:
-# - More readable (uses indentation like Python)
-# - Supports nested properties naturally
-# - Industry standard for Spring Boot
+# Spring profiles allow DIFFERENT configurations for different environments:
+# - default: Used for local development with PostgreSQL
+# - docker: Used when running inside Docker container
+#
+# Set active profile via: SPRING_PROFILES_ACTIVE=docker
 # ═══════════════════════════════════════════════════════════════════════════
 
-# Application Name
 spring:
   application:
     name: betterme-backend
   
   # ─────────────────────────────────────────────────────────────────────────
-  # DATABASE CONFIGURATION
+  # DATABASE CONFIGURATION - PostgreSQL
   # ─────────────────────────────────────────────────────────────────────────
-  # We're using H2 (in-memory database) for development
-  # Why? No installation needed! Data resets on restart (good for testing)
-  # In production, we'll switch to PostgreSQL
+  # Using PostgreSQL for data persistence (no more data loss!)
+  # For local dev: Run docker-compose -f docker-compose.dev.yml up -d
   
   datasource:
-    url: jdbc:h2:mem:bettermedb          # "mem" = in-memory
-    driver-class-name: org.h2.Driver
-    username: sa                          # Default H2 username
-    password:                             # Empty password for development
-  
-  # H2 Console - A web interface to see your database
-  h2:
-    console:
-      enabled: true                       # Access at /h2-console
-      path: /h2-console
+    url: jdbc:postgresql://localhost:5432/betterme
+    driver-class-name: org.postgresql.Driver
+    username: betterme
+    password: betterme123
   
   # ─────────────────────────────────────────────────────────────────────────
   # JPA / HIBERNATE CONFIGURATION  
   # ─────────────────────────────────────────────────────────────────────────
-  # JPA = Java Persistence API (standard for database operations)
-  # Hibernate = The actual implementation of JPA
-  
   jpa:
     hibernate:
-      ddl-auto: create-drop              # Auto-create tables from entities
+      ddl-auto: update                    # Update schema, keep data
       # Options: create-drop, create, update, validate, none
-      # create-drop: Create tables on start, drop on shutdown (good for dev)
-    show-sql: true                       # Show SQL queries in console (for learning!)
+      # update = Add new columns/tables, don't delete existing data
+    show-sql: true                        # Show SQL queries (for learning!)
     properties:
       hibernate:
-        format_sql: true                 # Pretty print SQL
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 # ─────────────────────────────────────────────────────────────────────────────
 # SERVER CONFIGURATION
 # ─────────────────────────────────────────────────────────────────────────────
 server:
-  port: 8080                             # API will be at http://localhost:8080
+  port: 8080
 
 # ─────────────────────────────────────────────────────────────────────────────
-# JWT CONFIGURATION (for authentication)
+# JWT CONFIGURATION
 # ─────────────────────────────────────────────────────────────────────────────
-# SECURITY NOTE: In production, use environment variables, not hardcoded values!
-# This is a base64-encoded secret key (required by JJWT library)
 jwt:
-  secret: bXlTdXBlclNlY3JldEtleUZvckpXVHRva2VuR2VuZXJhdGlvblRoaXNTaG91bGRCZUxvbmdFbm91Z2gxMjM0NTY3ODk=
-  expiration: 86400000                   # 24 hours in milliseconds
+  secret: ${JWT_SECRET:bXlTdXBlclNlY3JldEtleUZvckpXVHRva2VuR2VuZXJhdGlvblRoaXNTaG91bGRCZUxvbmdFbm91Z2gxMjM0NTY3ODk=}
+  expiration: 86400000
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ADMIN CONFIGURATION
+# ─────────────────────────────────────────────────────────────────────────────
+# Default admin created on startup (if doesn't exist)
+admin:
+  email: ${ADMIN_EMAIL:admin@betterme.com}
+  password: ${ADMIN_PASSWORD:admin123}
+  name: ${ADMIN_NAME:Admin User}
 
 # ─────────────────────────────────────────────────────────────────────────────
 # GEMINI AI CONFIGURATION
 # ─────────────────────────────────────────────────────────────────────────────
 gemini:
   api:
-    key: ${GEMINI_API_KEY:your-api-key-here}  # Use environment variable
+    key: ${GEMINI_API_KEY:your-api-key-here}
     url: https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent

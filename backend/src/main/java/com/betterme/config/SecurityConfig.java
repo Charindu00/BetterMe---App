@@ -152,9 +152,12 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/auth/**", // Login, Register
                                 "/api/public/**", // Any public endpoints
-                                "/h2-console/**", // H2 database console
+                                "/api/announcements/active", // Public announcements
                                 "/error" // Error pages
                         ).permitAll()
+
+                        // ADMIN-ONLY endpoints (requires ADMIN role)
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
                         // ALL OTHER endpoints require authentication
                         .anyRequest().authenticated())

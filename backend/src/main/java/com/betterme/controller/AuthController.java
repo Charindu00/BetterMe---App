@@ -4,6 +4,7 @@ import com.betterme.dto.AuthResponse;
 import com.betterme.dto.LoginRequest;
 import com.betterme.dto.RegisterRequest;
 import com.betterme.service.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
  * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @RestController
-@RequestMapping("/api/auth") // Base URL: /api/auth/*
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -38,18 +39,13 @@ public class AuthController {
      * ─────────────────────────────────────────────────────────────────────
      * POST /api/auth/register
      * 
-     * Request Body (JSON):
-     * {
-     * "name": "John Doe",
-     * "email": "john@example.com",
-     * "password": "password123"
-     * }
-     * 
-     * @Valid triggers validation defined in RegisterRequest DTO
+     * HttpServletRequest is injected by Spring to get client info (IP, etc.)
      */
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(authService.register(request));
+    public ResponseEntity<AuthResponse> register(
+            @Valid @RequestBody RegisterRequest request,
+            HttpServletRequest httpRequest) {
+        return ResponseEntity.ok(authService.register(request, httpRequest));
     }
 
     /**
@@ -57,16 +53,12 @@ public class AuthController {
      * LOGIN ENDPOINT
      * ─────────────────────────────────────────────────────────────────────
      * POST /api/auth/login
-     * 
-     * Request Body (JSON):
-     * {
-     * "email": "john@example.com",
-     * "password": "password123"
-     * }
      */
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
-        return ResponseEntity.ok(authService.login(request));
+    public ResponseEntity<AuthResponse> login(
+            @Valid @RequestBody LoginRequest request,
+            HttpServletRequest httpRequest) {
+        return ResponseEntity.ok(authService.login(request, httpRequest));
     }
 
     /**
@@ -74,9 +66,6 @@ public class AuthController {
      * HEALTH CHECK ENDPOINT
      * ─────────────────────────────────────────────────────────────────────
      * GET /api/auth/health
-     * 
-     * Simple endpoint to verify API is running
-     * Useful for deployment health checks!
      */
     @GetMapping("/health")
     public ResponseEntity<String> healthCheck() {
