@@ -23,6 +23,7 @@ BetterMe is a comprehensive self-improvement platform that helps users build bet
 ## ✨ Features
 
 - 🔐 **Secure Authentication** - JWT-based auth with role-based access control
+- 🎯 **Habit Tracking** - Create habits, check in daily, track streaks 🔥
 - 👨‍💼 **Admin Dashboard** - User management, activity logs, and system stats
 - 📊 **Activity Logging** - Track user actions for analytics and security
 - 📢 **Announcements** - Admin-to-user communication system
@@ -92,6 +93,19 @@ mvn spring-boot:run
 | POST | `/api/auth/register` | Register new user |
 | POST | `/api/auth/login` | Login and get JWT |
 | GET | `/api/auth/health` | Health check |
+
+### Habits (Authenticated)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/habits` | List user's habits |
+| POST | `/api/habits` | Create new habit |
+| GET | `/api/habits/{id}` | Get habit details |
+| PUT | `/api/habits/{id}` | Update habit |
+| DELETE | `/api/habits/{id}` | Delete (archive) habit |
+| POST | `/api/habits/{id}/checkin` | Check in today 🔥 |
+| GET | `/api/habits/{id}/history` | Get check-in history |
+| GET | `/api/habits/stats` | Get habit statistics |
 
 ### Announcements
 
