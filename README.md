@@ -25,6 +25,7 @@ BetterMe is a comprehensive self-improvement platform that helps users build bet
 - 🔐 **Secure Authentication** - JWT-based auth with role-based access control
 - 🎯 **Habit Tracking** - Create habits, check in daily, track streaks 🔥
 - 📈 **Progress Dashboard** - Weekly, monthly views + achievements 🏆
+- 🤖 **AI Motivation Coach** - Powered by Google Gemini API
 - 👨‍💼 **Admin Dashboard** - User management, activity logs, and system stats
 - 📊 **Activity Logging** - Track user actions for analytics and security
 - 📢 **Announcements** - Admin-to-user communication system
@@ -117,6 +118,15 @@ mvn spring-boot:run
 | GET | `/api/dashboard/monthly` | Calendar view data |
 | GET | `/api/dashboard/streaks` | Top streaks leaderboard |
 | GET | `/api/dashboard/achievements` | Earned badges 🏆 |
+
+### AI Motivation Coach (Gemini API)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/motivation/daily` | Personalized daily motivation |
+| POST | `/api/motivation/habit/{id}` | AI tips for specific habit |
+| GET | `/api/motivation/celebration` | Achievement celebration 🎉 |
+| POST | `/api/motivation/chat` | Chat with Coach AI 🤖 |
 
 ### Announcements
 
