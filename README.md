@@ -26,8 +26,9 @@ BetterMe is a comprehensive self-improvement platform that helps users build bet
 - 🎯 **Habit Tracking** - Create habits, check in daily, track streaks 🔥
 - 📈 **Progress Dashboard** - Weekly, monthly views + achievements 🏆
 - 🤖 **AI Motivation Coach** - Powered by Google Gemini API
+- 🎯 **Goal Setting** - Set targets with deadlines and track progress
+- 📊 **Analytics Charts** - Trends, heatmaps, per-habit stats
 - 👨‍💼 **Admin Dashboard** - User management, activity logs, and system stats
-- 📊 **Activity Logging** - Track user actions for analytics and security
 - 📢 **Announcements** - Admin-to-user communication system
 - 🐳 **Docker Ready** - One command to start the full stack
 - 📱 **Responsive Design** - Works on desktop and mobile
@@ -137,6 +138,25 @@ mvn spring-boot:run
 | POST | `/api/admin/announcements` | Admin | Create announcement |
 | PUT | `/api/admin/announcements/{id}/toggle` | Admin | Toggle active status |
 | DELETE | `/api/admin/announcements/{id}` | Admin | Delete announcement |
+
+### Goal Setting
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/goals` | List all goals |
+| POST | `/api/goals` | Create goal |
+| PUT | `/api/goals/{id}` | Update goal |
+| DELETE | `/api/goals/{id}` | Delete goal |
+| POST | `/api/goals/{id}/progress` | Update progress |
+| GET | `/api/goals/stats` | Goal statistics |
+
+### Analytics Charts
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/analytics/trends` | Daily/weekly trends 📈 |
+| GET | `/api/analytics/heatmap` | GitHub-style heatmap 🗓️ |
+| GET | `/api/analytics/habits` | Per-habit completion rates |
 
 ### Admin Dashboard
 

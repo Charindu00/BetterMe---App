@@ -67,4 +67,16 @@ public interface HabitCheckInRepository extends JpaRepository<HabitCheckIn, Long
      */
     @Query("SELECT c FROM HabitCheckIn c WHERE c.habit = ?1 AND c.checkInDate >= ?2 ORDER BY c.checkInDate DESC")
     List<HabitCheckIn> findRecentCheckIns(Habit habit, LocalDate startDate);
+
+    /**
+     * Get check-ins for multiple habits within a date range (for analytics)
+     */
+    @Query("SELECT c FROM HabitCheckIn c WHERE c.habit.id IN ?1 AND c.checkInDate BETWEEN ?2 AND ?3")
+    List<HabitCheckIn> findByHabitIdInAndCheckInDateBetween(List<Long> habitIds, LocalDate startDate,
+            LocalDate endDate);
+
+    /**
+     * Count check-ins after a date (for analytics)
+     */
+    long countByHabitAndCheckInDateAfter(Habit habit, LocalDate date);
 }
