@@ -95,3 +95,12 @@ export const motivationAPI = {
     getCelebration: () => api.get('/api/motivation/celebration'),
     chat: (message) => api.post('/api/motivation/chat', { message })
 };
+
+// Notifications
+export const notificationsAPI = {
+    getAll: () => api.get('/api/notifications'),
+    getUnread: () => api.get('/api/notifications/unread'),
+    getUnreadCount: () => api.get('/api/notifications/unread/count'),
+    markAllRead: () => api.post('/api/notifications/read-all'),
+    markRead: (id) => api.post(`/api/notifications/${id}/read`)
+};
