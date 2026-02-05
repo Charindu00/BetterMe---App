@@ -1,0 +1,249 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   AUTH PAGES STYLES (Login & Register)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background: var(--bg-primary);
+}
+
+.auth-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    max-width: 1000px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+}
+
+/* Form Section */
+.auth-form-section {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.auth-header {
+    margin-bottom: 2rem;
+}
+
+.auth-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+}
+
+.auth-header h1 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.auth-header p {
+    color: var(--text-secondary);
+}
+
+/* Form */
+.auth-form {
+    margin-bottom: 1.5rem;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-tertiary);
+}
+
+.input.with-icon {
+    padding-left: 2.75rem;
+}
+
+.auth-error {
+    padding: 0.875rem 1rem;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: var(--error);
+    border-radius: var(--radius-md);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.auth-submit {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.spinner-icon {
+    animation: spin 1s linear infinite;
+}
+
+/* Footer */
+.auth-footer {
+    text-align: center;
+}
+
+.auth-footer p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.auth-footer a {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Demo Credentials */
+.demo-credentials {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    text-align: center;
+}
+
+.demo-credentials p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Visual Section */
+.auth-visual {
+    background: var(--gradient-primary);
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-visual::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    animation: pulse 4s infinite;
+}
+
+.auth-visual-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: white;
+}
+
+.visual-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+}
+
+.auth-visual h2 {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.auth-visual p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1rem;
+    max-width: 280px;
+    margin: 0 auto;
+}
+
+/* Visual Stats */
+.visual-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    justify-content: center;
+}
+
+.visual-stat {
+    text-align: center;
+}
+
+.visual-stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.visual-stat-label {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+/* Register Visual */
+.benefits-list {
+    list-style: none;
+    text-align: left;
+    margin: 1.5rem 0;
+}
+
+.benefits-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.benefit-check {
+    flex-shrink: 0;
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.25rem;
+    border-radius: 50%;
+}
+
+.visual-quote {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+}
+
+.visual-quote p {
+    font-style: italic;
+    margin-bottom: 0.5rem;
+}
+
+.visual-quote span {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .auth-container {
+        grid-template-columns: 1fr;
+        max-width: 450px;
+    }
+
+    .auth-visual {
+        display: none;
+    }
+
+    .auth-form-section {
+        padding: 2rem;
+    }
+}

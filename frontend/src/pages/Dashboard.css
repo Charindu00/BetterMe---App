@@ -1,0 +1,279 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   DASHBOARD STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.dashboard {
+    padding: 2rem 0;
+}
+
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.header-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+}
+
+.stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-lg);
+    color: white;
+    flex-shrink: 0;
+}
+
+.stat-icon.gradient-primary {
+    background: var(--gradient-primary);
+}
+
+.stat-icon.gradient-warm {
+    background: var(--gradient-warm);
+}
+
+.stat-icon.gradient-cool {
+    background: var(--gradient-cool);
+}
+
+.stat-icon.gradient-accent {
+    background: var(--gradient-accent);
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Loading Skeleton */
+.loading-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+}
+
+.stat-skeleton {
+    height: 90px;
+}
+
+/* Main Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+/* Motivation Card */
+.motivation-card {
+    padding: 1.75rem;
+    border-radius: var(--radius-xl);
+}
+
+.motivation-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.motivation-text {
+    color: white;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Card Header */
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+}
+
+.card-header h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+.card-link {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--primary);
+}
+
+/* Weekly Progress */
+.weekly-bars {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 120px;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+}
+
+.day-bar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.bar-fill {
+    width: 100%;
+    max-width: 40px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    min-height: 4px;
+    margin-top: auto;
+    transition: height 0.3s ease;
+}
+
+.day-label {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    margin-top: 0.5rem;
+}
+
+/* Quick Actions */
+.quick-actions h3 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+}
+
+.action-btn:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateX(4px);
+}
+
+/* Achievements */
+.achievements-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.achievement-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+}
+
+.achievement-icon {
+    font-size: 1.5rem;
+}
+
+.achievement-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.achievement-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+.achievement-desc {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 2rem;
+}
+
+.empty-state p {
+    color: var(--text-tertiary);
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .loading-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

@@ -1,0 +1,224 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   GOALS PAGE STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.goals {
+    padding: 2rem 0;
+}
+
+.goals-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+/* Stats */
+.goals-stats {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 1.25rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-light);
+}
+
+.goal-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.goal-stat span {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.goal-stat label {
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+}
+
+/* Goals Grid */
+.goals-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.goal-skeleton {
+    height: 240px;
+}
+
+/* Goal Card */
+.goal-card {
+    position: relative;
+}
+
+.goal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.goal-icon {
+    font-size: 2rem;
+}
+
+.delete-btn {
+    opacity: 0;
+    padding: 0.5rem;
+    background: transparent;
+    border: none;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.goal-card:hover .delete-btn {
+    opacity: 1;
+}
+
+.delete-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--error);
+}
+
+.goal-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+}
+
+.goal-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+/* Progress */
+.progress-section {
+    margin: 1rem 0;
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.progress-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.progress-percent {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.progress-bar {
+    height: 8px;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-full);
+    transition: width 0.3s ease;
+}
+
+/* Deadline */
+.goal-deadline {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    margin-bottom: 1rem;
+}
+
+.goal-deadline.overdue {
+    color: var(--error);
+}
+
+/* Actions */
+.goal-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.goal-completed {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: var(--gradient-accent);
+    color: white;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+}
+
+.goal-card.completed {
+    opacity: 0.8;
+}
+
+/* Form */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Empty State */
+.empty-goals {
+    text-align: center;
+    padding: 4rem 2rem;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.empty-goals .empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.empty-goals h3 {
+    margin-bottom: 0.5rem;
+}
+
+.empty-goals p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .goals-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .goals-stats {
+        flex-wrap: wrap;
+    }
+
+    .goals-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
