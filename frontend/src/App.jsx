@@ -48,6 +48,7 @@ const DashboardLayout = ({ children }) => {
       />
       <main className="dashboard-main">
         {children}
+        <Footer />
       </main>
     </div>
   );
