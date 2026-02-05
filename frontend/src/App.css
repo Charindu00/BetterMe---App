@@ -8,6 +8,17 @@
   min-height: 100vh;
 }
 
+/* Public Layout (landing pages with footer) */
+.public-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.public-layout .main-content {
+  flex: 1;
+}
+
 /* Dashboard Layout (with sidebar) */
 .dashboard-layout {
   display: flex;

@@ -5,6 +5,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Sidebar from './components/Sidebar';
 import TopBar from './components/TopBar';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 // Pages
 import Landing from './pages/Landing';
@@ -55,12 +56,13 @@ const DashboardLayout = ({ children }) => {
 // Public Layout (with top navbar for landing/auth pages)
 const PublicLayout = ({ children }) => {
   return (
-    <>
+    <div className="public-layout">
       <Navbar />
       <main className="main-content">
         {children}
       </main>
-    </>
+      <Footer />
+    </div>
   );
 };
 
