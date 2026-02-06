@@ -7,7 +7,7 @@
 }
 
 .settings-content {
-    max-width: 600px;
+    max-width: 650px;
     margin: 0 auto;
 }
 
@@ -19,46 +19,118 @@
     font-size: 1rem;
     margin-bottom: 1rem;
     color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
-/* Profile */
-.profile-info {
+/* ─────────────────────────────────────────────────────────────────────────────
+   AVATAR SECTION
+   ─────────────────────────────────────────────────────────────────────────────*/
+.avatar-section {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
-.avatar {
+.avatar-wrapper {
+    position: relative;
+}
+
+.avatar-large {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 64px;
-    height: 64px;
+    width: 100px;
+    height: 100px;
     background: var(--gradient-primary);
     color: white;
     border-radius: 50%;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    transition: transform var(--transition-fast);
 }
 
-.profile-details {
-    flex: 1;
+.avatar-large:hover {
+    transform: scale(1.05);
 }
 
-.profile-email {
-    font-weight: 600;
+.avatar-large img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.avatar-large:hover .avatar-overlay {
+    opacity: 1;
+}
+
+.avatar-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.avatar-hint {
+    font-weight: 500;
     color: var(--text-primary);
-    margin-bottom: 0.25rem;
 }
 
-.profile-joined {
+.avatar-size {
     font-size: 0.85rem;
     color: var(--text-tertiary);
 }
 
-/* Setting Row */
+.remove-avatar-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+    padding: 0.35rem 0.75rem;
+    background: transparent;
+    border: 1px solid var(--error);
+    color: var(--error);
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-family: var(--font-family);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.remove-avatar-btn:hover:not(:disabled) {
+    background: var(--error);
+    color: white;
+}
+
+.remove-avatar-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   SETTING ROWS
+   ─────────────────────────────────────────────────────────────────────────────*/
 .setting-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.setting-row:last-child {
+    border-bottom: none;
 }
 
 .setting-info {
@@ -76,7 +148,160 @@
     color: var(--text-tertiary);
 }
 
-/* Theme Switch */
+.setting-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.profile-value {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.profile-value.muted {
+    color: var(--text-tertiary);
+    font-weight: 400;
+}
+
+/* Name Edit */
+.edit-name-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.name-input {
+    width: 180px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+}
+
+.name-display {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.edit-btn {
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+}
+
+.edit-btn:hover {
+    text-decoration: underline;
+}
+
+.icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.save-btn {
+    background: var(--success);
+    color: white;
+}
+
+.save-btn:hover:not(:disabled) {
+    background: #0ea572;
+}
+
+.cancel-btn {
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+}
+
+.cancel-btn:hover {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.success-icon {
+    color: var(--success);
+    animation: fadeIn 0.3s ease;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   PASSWORD FORM
+   ─────────────────────────────────────────────────────────────────────────────*/
+.password-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.password-input-wrapper {
+    position: relative;
+}
+
+.password-input-wrapper .input {
+    padding-right: 3rem;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    padding: 0.25rem;
+}
+
+.password-toggle:hover {
+    color: var(--text-primary);
+}
+
+.error-message {
+    color: var(--error);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+.success-message {
+    color: var(--success);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+.change-password-btn {
+    margin-top: 1rem;
+    align-self: flex-start;
+}
+
+.change-password-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Spinner */
+.spinner-icon {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   THEME SWITCH
+   ─────────────────────────────────────────────────────────────────────────────*/
 .theme-switch {
     display: flex;
     align-items: center;
@@ -132,37 +357,9 @@
     color: var(--text-secondary);
 }
 
-/* Theme Preview */
-.theme-preview {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
-
-.preview-card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 2rem;
-    border-radius: var(--radius-lg);
-    font-weight: 500;
-}
-
-.preview-card.light {
-    background: #FFFFFF;
-    color: #1E293B;
-    border: 1px solid #E2E8F0;
-}
-
-.preview-card.dark {
-    background: #1E293B;
-    color: #F1F5F9;
-    border: 1px solid #334155;
-}
-
-/* Logout */
+/* ─────────────────────────────────────────────────────────────────────────────
+   LOGOUT
+   ─────────────────────────────────────────────────────────────────────────────*/
 .logout-btn {
     display: flex;
     align-items: center;
@@ -182,4 +379,33 @@
 .logout-btn:hover {
     background: var(--error);
     color: white;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   RESPONSIVE
+   ─────────────────────────────────────────────────────────────────────────────*/
+@media (max-width: 640px) {
+    .avatar-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .avatar-info {
+        align-items: center;
+    }
+
+    .setting-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .edit-name-group {
+        width: 100%;
+    }
+
+    .name-input {
+        flex: 1;
+        width: auto;
+    }
 }

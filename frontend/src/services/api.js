@@ -104,3 +104,12 @@ export const notificationsAPI = {
     markAllRead: () => api.post('/api/notifications/read-all'),
     markRead: (id) => api.post(`/api/notifications/${id}/read`)
 };
+
+// User Profile
+export const userAPI = {
+    getProfile: () => api.get('/api/user/me'),
+    updateProfile: (data) => api.put('/api/user/profile', data),
+    changePassword: (data) => api.put('/api/user/password', data),
+    uploadAvatar: (avatar) => api.post('/api/user/avatar', { avatar }),
+    removeAvatar: () => api.delete('/api/user/avatar')
+};

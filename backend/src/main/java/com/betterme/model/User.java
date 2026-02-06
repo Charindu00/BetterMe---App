@@ -96,6 +96,12 @@ public class User implements UserDetails {
     private Role role = Role.USER;
 
     /**
+     * Profile picture stored as Base64 string or URL
+     */
+    @Column(name = "profile_picture", columnDefinition = "TEXT")
+    private String profilePicture;
+
+    /**
      * ─────────────────────────────────────────────────────────────────────
      * TIMESTAMPS
      * ─────────────────────────────────────────────────────────────────────
