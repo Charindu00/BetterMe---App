@@ -155,6 +155,10 @@ const Settings = () => {
                 try {
                     const res = await userAPI.uploadAvatar(base64);
                     setProfile(res.data);
+                    // Notify TopBar of profile update
+                    window.dispatchEvent(new CustomEvent('profileUpdated', {
+                        detail: { profilePicture: res.data.profilePicture }
+                    }));
                 } catch (err) {
                     console.error('Failed to upload avatar:', err);
                 } finally {
@@ -172,6 +176,10 @@ const Settings = () => {
         try {
             const res = await userAPI.removeAvatar();
             setProfile(res.data);
+            // Notify TopBar of profile update
+            window.dispatchEvent(new CustomEvent('profileUpdated', {
+                detail: { profilePicture: null }
+            }));
         } catch (err) {
             console.error('Failed to remove avatar:', err);
         } finally {

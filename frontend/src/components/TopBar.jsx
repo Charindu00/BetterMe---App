@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
-import { notificationsAPI } from '../services/api';
+import { notificationsAPI, userAPI } from '../services/api';
 import { Sun, Moon, Bell, Menu, X, User } from 'lucide-react';
 import './TopBar.css';
 
@@ -12,7 +12,34 @@ const TopBar = ({ onMenuClick, mobileMenuOpen }) => {
     const [notifications, setNotifications] = useState([]);
     const [showNotifications, setShowNotifications] = useState(false);
     const [unreadCount, setUnreadCount] = useState(0);
+    const [profilePicture, setProfilePicture] = useState(null);
     const dropdownRef = useRef(null);
+
+    // Fetch user profile for avatar
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const res = await userAPI.getProfile();
+                setProfilePicture(res.data.profilePicture);
+            } catch {
+                // Ignore errors
+            }
+        };
+        if (user) {
+            fetchProfile();
+        }
+    }, [user]);
+
+    // Listen for profile updates
+    useEffect(() => {
+        const handleProfileUpdate = (e) => {
+            if (e.detail?.profilePicture !== undefined) {
+                setProfilePicture(e.detail.profilePicture);
+            }
+        };
+        window.addEventListener('profileUpdated', handleProfileUpdate);
+        return () => window.removeEventListener('profileUpdated', handleProfileUpdate);
+    }, []);
 
     // Mock notifications for now - will be replaced with API
     useEffect(() => {
@@ -113,7 +140,11 @@ const TopBar = ({ onMenuClick, mobileMenuOpen }) => {
 
                 {/* User Avatar */}
                 <Link to="/settings" className="user-avatar">
-                    <User size={18} />
+                    {profilePicture ? (
+                        <img src={profilePicture} alt="Profile" className="avatar-img" />
+                    ) : (
+                        <User size={18} />
+                    )}
                 </Link>
             </div>
         </header>
@@ -121,3 +152,4 @@ const TopBar = ({ onMenuClick, mobileMenuOpen }) => {
 };
 
 export default TopBar;
+
