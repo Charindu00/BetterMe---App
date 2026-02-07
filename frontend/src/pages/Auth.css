@@ -247,3 +247,137 @@
         padding: 2rem;
     }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   VERIFICATION PAGES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.verify-card {
+    padding: 3rem;
+    text-align: center;
+    max-width: 450px;
+}
+
+.verify-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.verify-icon {
+    transition: color 0.3s ease;
+}
+
+.verify-icon.loading {
+    color: var(--primary);
+}
+
+.verify-icon.success {
+    color: var(--success);
+}
+
+.verify-icon.error {
+    color: var(--error);
+}
+
+.verify-status h1 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.verify-status p {
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.verify-status .text-muted {
+    color: var(--text-tertiary);
+    font-size: 0.9rem;
+}
+
+.verify-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* Forgot Password Link */
+.forgot-password-link {
+    display: block;
+    margin-top: 1rem;
+    color: var(--text-tertiary);
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.forgot-password-link:hover {
+    color: var(--primary);
+}
+
+/* Auth Link */
+.auth-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color var(--transition-fast);
+}
+
+.auth-link:hover {
+    color: var(--primary);
+}
+
+/* Password Toggle */
+.password-toggle {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    padding: 0.25rem;
+}
+
+.password-toggle:hover {
+    color: var(--text-primary);
+}
+
+/* Input with Icon */
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon .input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-tertiary);
+}
+
+.input-with-icon .input {
+    padding-left: 2.75rem;
+    padding-right: 2.75rem;
+}
+
+/* Spin Animation */
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Full Width Button */
+.w-full {
+    width: 100%;
+}

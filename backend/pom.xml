@@ -69,6 +69,12 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         
+        <!-- Spring Mail: Email sending support -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        
         <!-- H2 Database: In-memory DB for development (no setup needed!) -->
         <dependency>
             <groupId>com.h2database</groupId>

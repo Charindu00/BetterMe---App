@@ -44,7 +44,11 @@ export default api;
 // Auth
 export const authAPI = {
     login: (email, password) => api.post('/api/auth/login', { email, password }),
-    register: (name, email, password) => api.post('/api/auth/register', { name, email, password })
+    register: (name, email, password) => api.post('/api/auth/register', { name, email, password }),
+    verifyEmail: (token) => api.post(`/api/auth/verify-email?token=${token}`),
+    resendVerification: (email) => api.post('/api/auth/resend-verification', { email }),
+    forgotPassword: (email) => api.post('/api/auth/forgot-password', { email }),
+    resetPassword: (token, newPassword) => api.post('/api/auth/reset-password', { token, newPassword })
 };
 
 // Habits

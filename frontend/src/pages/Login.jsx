@@ -102,6 +102,9 @@ const Login = () => {
                             Don't have an account?{' '}
                             <Link to="/register">Create one</Link>
                         </p>
+                        <Link to="/forgot-password" className="forgot-password-link">
+                            Forgot your password?
+                        </Link>
                     </div>
 
                     {/* Demo Credentials */}

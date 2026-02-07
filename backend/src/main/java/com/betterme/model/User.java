@@ -102,6 +102,13 @@ public class User implements UserDetails {
     private String profilePicture;
 
     /**
+     * Email verification status
+     */
+    @Column(name = "email_verified")
+    @Builder.Default
+    private boolean emailVerified = false;
+
+    /**
      * ─────────────────────────────────────────────────────────────────────
      * TIMESTAMPS
      * ─────────────────────────────────────────────────────────────────────
