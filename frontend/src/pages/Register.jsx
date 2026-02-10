@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { Sparkles, Mail, Lock, User, ArrowRight, Loader, Check } from 'lucide-react';
+import { authAPI } from '../services/api';
+import { Sparkles, Mail, Lock, User, ArrowRight, Loader, Check, CheckCircle } from 'lucide-react';
 import './Auth.css';
 
 const Register = () => {
@@ -10,8 +10,8 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
-    const { register } = useAuth();
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -26,8 +26,10 @@ const Register = () => {
         setLoading(true);
 
         try {
-            await register(name, email, password);
-            navigate('/dashboard');
+            // Call register API directly (don't use AuthContext which sets token)
+            await authAPI.register(name, email, password);
+            // Show success message instead of auto-login
+            setRegistrationSuccess(true);
         } catch (err) {
             setError(err.response?.data?.message || 'Registration failed');
         } finally {
@@ -41,6 +43,64 @@ const Register = () => {
         'AI-powered motivation',
         'Beautiful analytics',
     ];
+
+    // Show success message after registration
+    if (registrationSuccess) {
+        return (
+            <div className="auth-page">
+                <div className="auth-container">
+                    <div className="auth-form-section" style={{ textAlign: 'center', padding: '60px 40px' }}>
+                        <div className="auth-header">
+                            <Link to="/" className="auth-logo">
+                                <Sparkles size={28} />
+                                <span>BetterMe</span>
+                            </Link>
+                        </div>
+
+                        <div style={{ marginTop: '40px' }}>
+                            <CheckCircle size={80} style={{ color: '#22c55e', marginBottom: '24px' }} />
+                            <h1 style={{ marginBottom: '16px' }}>Check Your Email! 📧</h1>
+                            <p style={{ color: 'var(--text-secondary)', fontSize: '18px', marginBottom: '24px' }}>
+                                We've sent a verification link to:
+                            </p>
+                            <p style={{
+                                color: 'var(--text-primary)',
+                                fontWeight: '600',
+                                fontSize: '20px',
+                                padding: '12px 24px',
+                                background: 'var(--surface-secondary)',
+                                borderRadius: '8px',
+                                display: 'inline-block',
+                                marginBottom: '32px'
+                            }}>
+                                {email}
+                            </p>
+                            <p style={{ color: 'var(--text-secondary)', marginBottom: '32px' }}>
+                                Please click the link in your email to verify your account.<br />
+                                <span style={{ fontSize: '14px' }}>Check your spam folder if you don't see it.</span>
+                            </p>
+
+                            <Link to="/login" className="btn btn-primary btn-lg">
+                                Go to Login
+                                <ArrowRight size={18} />
+                            </Link>
+                        </div>
+                    </div>
+
+                    {/* Right Side - Visual */}
+                    <div className="auth-visual register-visual">
+                        <div className="auth-visual-content">
+                            <div className="visual-icon">✉️</div>
+                            <h2>Almost There!</h2>
+                            <p style={{ color: 'rgba(255,255,255,0.8)', marginTop: '16px' }}>
+                                Just one more step to start your journey to becoming your best self.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="auth-page">
@@ -162,3 +222,4 @@ const Register = () => {
 };
 
 export default Register;
+

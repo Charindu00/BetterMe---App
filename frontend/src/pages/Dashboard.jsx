@@ -4,7 +4,7 @@ import {
     Flame, Target, CheckCircle, TrendingUp, Sparkles,
     ArrowRight, Calendar, Award
 } from 'lucide-react';
-import { dashboardAPI, motivationAPI } from '../services/api';
+import { dashboardAPI, motivationAPI, userAPI } from '../services/api';
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -12,6 +12,7 @@ const Dashboard = () => {
     const [weeklyProgress, setWeeklyProgress] = useState(null);
     const [motivation, setMotivation] = useState(null);
     const [achievements, setAchievements] = useState([]);
+    const [userName, setUserName] = useState('');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -29,6 +30,14 @@ const Dashboard = () => {
             if (summaryRes.status === 'fulfilled') setSummary(summaryRes.value.data);
             if (weeklyRes.status === 'fulfilled') setWeeklyProgress(weeklyRes.value.data);
             if (achievementsRes.status === 'fulfilled') setAchievements(achievementsRes.value.data);
+
+            // Get user name
+            try {
+                const userRes = await userAPI.getProfile();
+                setUserName(userRes.data?.name || '');
+            } catch {
+                // fallback to empty
+            }
 
             // Get AI motivation
             try {
@@ -83,7 +92,7 @@ const Dashboard = () => {
         {
             icon: Award,
             label: 'Achievements',
-            value: achievements?.length || 0,
+            value: achievements?.filter(a => a.unlocked)?.length || 0,
             suffix: '',
             gradient: 'gradient-accent'
         }
@@ -96,7 +105,7 @@ const Dashboard = () => {
                 <div className="dashboard-header">
                     <div>
                         <h1 className="page-title">
-                            Good {getGreeting()}! 👋
+                            Hello{userName ? `, ${userName}` : ''}! 👋
                         </h1>
                         <p className="page-subtitle">Here's your progress overview</p>
                     </div>
@@ -169,41 +178,43 @@ const Dashboard = () => {
                         )}
                     </div>
 
-                    {/* Quick Actions */}
-                    <div className="card quick-actions">
-                        <h3>Quick Actions</h3>
-                        <div className="action-buttons">
-                            <Link to="/habits" className="action-btn">
-                                <Flame size={20} />
-                                <span>Track Habits</span>
-                            </Link>
-                            <Link to="/goals" className="action-btn">
-                                <Target size={20} />
-                                <span>View Goals</span>
-                            </Link>
-                            <Link to="/analytics" className="action-btn">
-                                <TrendingUp size={20} />
-                                <span>Analytics</span>
-                            </Link>
-                        </div>
-                    </div>
 
-                    {/* Recent Achievements */}
+
+                    {/* All Achievements */}
                     {achievements.length > 0 && (
-                        <div className="card achievements-card">
+                        <div className="card achievements-card achievements-full">
                             <div className="card-header">
                                 <h3>
                                     <Award size={20} />
-                                    Achievements
+                                    Achievements ({achievements.filter(a => a.unlocked).length}/{achievements.length})
                                 </h3>
                             </div>
-                            <div className="achievements-list">
-                                {achievements.slice(0, 3).map((achievement, index) => (
-                                    <div key={index} className="achievement-item">
+                            <div className="achievements-grid">
+                                {achievements.map((achievement, index) => (
+                                    <div
+                                        key={index}
+                                        className={`achievement-item ${achievement.unlocked ? 'unlocked' : 'locked'}`}
+                                    >
                                         <span className="achievement-icon">{achievement.icon}</span>
                                         <div className="achievement-info">
                                             <span className="achievement-name">{achievement.name}</span>
                                             <span className="achievement-desc">{achievement.description}</span>
+                                            {!achievement.unlocked && (
+                                                <div className="achievement-progress">
+                                                    <div className="achievement-progress-bar">
+                                                        <div
+                                                            className="achievement-progress-fill"
+                                                            style={{ width: `${achievement.progressPercentage || 0}%` }}
+                                                        />
+                                                    </div>
+                                                    <span className="achievement-progress-text">
+                                                        {achievement.currentProgress}/{achievement.requiredProgress}
+                                                    </span>
+                                                </div>
+                                            )}
+                                            {achievement.unlocked && (
+                                                <span className="achievement-unlocked-badge">✅ Unlocked</span>
+                                            )}
                                         </div>
                                     </div>
                                 ))}

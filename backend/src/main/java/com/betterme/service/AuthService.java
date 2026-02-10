@@ -39,7 +39,6 @@ public class AuthService {
         private final PasswordEncoder passwordEncoder;
         private final JwtService jwtService;
         private final AuthenticationManager authenticationManager;
-        private final ActivityLogService activityLogService;
 
         /**
          * ─────────────────────────────────────────────────────────────────────
@@ -49,12 +48,6 @@ public class AuthService {
         public AuthResponse register(RegisterRequest request, HttpServletRequest httpRequest) {
                 // Check if email already exists
                 if (userRepository.existsByEmail(request.getEmail())) {
-                        // Log failed registration attempt
-                        activityLogService.logAnonymous(
-                                        "REGISTRATION_FAILED",
-                                        "Email already exists: " + request.getEmail(),
-                                        httpRequest);
-
                         return AuthResponse.builder()
                                         .message("Email already registered!")
                                         .build();
@@ -69,13 +62,6 @@ public class AuthService {
 
                 // Save to database
                 User savedUser = userRepository.save(user);
-
-                // Log successful registration
-                activityLogService.log(
-                                savedUser,
-                                "USER_REGISTERED",
-                                "New user registered",
-                                httpRequest);
 
                 // Generate JWT token
                 String jwtToken = jwtService.generateToken(savedUser);
@@ -97,44 +83,27 @@ public class AuthService {
          * ─────────────────────────────────────────────────────────────────────
          */
         public AuthResponse login(LoginRequest request, HttpServletRequest httpRequest) {
-                try {
-                        // Authenticate user (throws exception if invalid credentials)
-                        authenticationManager.authenticate(
-                                        new UsernamePasswordAuthenticationToken(
-                                                        request.getEmail(),
-                                                        request.getPassword()));
+                // Authenticate user (throws exception if invalid credentials)
+                authenticationManager.authenticate(
+                                new UsernamePasswordAuthenticationToken(
+                                                request.getEmail(),
+                                                request.getPassword()));
 
-                        // Find user in database
-                        User user = userRepository.findByEmail(request.getEmail())
-                                        .orElseThrow(() -> new RuntimeException("User not found"));
+                // Find user in database
+                User user = userRepository.findByEmail(request.getEmail())
+                                .orElseThrow(() -> new RuntimeException("User not found"));
 
-                        // Log successful login
-                        activityLogService.log(
-                                        user,
-                                        "USER_LOGIN",
-                                        "User logged in successfully",
-                                        httpRequest);
+                // Generate JWT token
+                String jwtToken = jwtService.generateToken(user);
 
-                        // Generate JWT token
-                        String jwtToken = jwtService.generateToken(user);
-
-                        return AuthResponse.builder()
-                                        .token(jwtToken)
-                                        .type("Bearer")
-                                        .id(user.getId())
-                                        .name(user.getName())
-                                        .email(user.getEmail())
-                                        .role(user.getRole().name())
-                                        .message("Login successful! Welcome back!")
-                                        .build();
-
-                } catch (Exception e) {
-                        // Log failed login attempt
-                        activityLogService.logAnonymous(
-                                        "LOGIN_FAILED",
-                                        "Failed login attempt for: " + request.getEmail(),
-                                        httpRequest);
-                        throw e;
-                }
+                return AuthResponse.builder()
+                                .token(jwtToken)
+                                .type("Bearer")
+                                .id(user.getId())
+                                .name(user.getName())
+                                .email(user.getEmail())
+                                .role(user.getRole().name())
+                                .message("Login successful! Welcome back!")
+                                .build();
         }
 }

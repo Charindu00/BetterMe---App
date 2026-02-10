@@ -41,15 +41,21 @@ const TopBar = ({ onMenuClick, mobileMenuOpen }) => {
         return () => window.removeEventListener('profileUpdated', handleProfileUpdate);
     }, []);
 
-    // Mock notifications for now - will be replaced with API
+    // Fetch real notifications from API
     useEffect(() => {
-        const mockNotifications = [
-            { id: 1, message: '🔥 You completed a 7-day streak!', time: '2 hours ago', read: false },
-            { id: 2, message: '🎯 Goal "Read 12 books" is 50% complete', time: '1 day ago', read: false },
-            { id: 3, message: '✨ New achievement unlocked: Week Warrior', time: '2 days ago', read: true },
-        ];
-        setNotifications(mockNotifications);
-        setUnreadCount(mockNotifications.filter(n => !n.read).length);
+        const fetchNotifications = async () => {
+            try {
+                const res = await notificationsAPI.getAll();
+                const data = res.data || [];
+                setNotifications(data);
+                setUnreadCount(data.filter(n => !n.read).length);
+            } catch (err) {
+                // If API fails, just show empty notifications
+                setNotifications([]);
+                setUnreadCount(0);
+            }
+        };
+        fetchNotifications();
     }, []);
 
     // Close dropdown when clicking outside

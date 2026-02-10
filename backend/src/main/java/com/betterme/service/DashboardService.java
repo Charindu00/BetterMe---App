@@ -4,6 +4,7 @@ import com.betterme.dto.*;
 import com.betterme.model.Habit;
 import com.betterme.model.HabitCheckIn;
 import com.betterme.model.User;
+import com.betterme.repository.GoalRepository;
 import com.betterme.repository.HabitCheckInRepository;
 import com.betterme.repository.HabitRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,290 +35,304 @@ import java.util.stream.Collectors;
 @Slf4j
 public class DashboardService {
 
-    private final HabitRepository habitRepository;
-    private final HabitCheckInRepository checkInRepository;
+        private final HabitRepository habitRepository;
+        private final HabitCheckInRepository checkInRepository;
+        private final GoalRepository goalRepository;
 
-    // Motivational quotes for the dashboard
-    private static final List<String> QUOTES = List.of(
-            "Small steps every day lead to big changes! 🚀",
-            "You're building something amazing, one day at a time! 💪",
-            "Consistency is the key to success! 🔑",
-            "Every check-in is a vote for your future self! ✨",
-            "Keep going! Your streak is proof of your dedication! 🔥",
-            "Progress, not perfection! 🌟",
-            "The best time to start was yesterday. The next best time is now! ⏰",
-            "You're stronger than you think! 💎");
+        // Motivational quotes for the dashboard
+        private static final List<String> QUOTES = List.of(
+                        "Small steps every day lead to big changes! 🚀",
+                        "You're building something amazing, one day at a time! 💪",
+                        "Consistency is the key to success! 🔑",
+                        "Every check-in is a vote for your future self! ✨",
+                        "Keep going! Your streak is proof of your dedication! 🔥",
+                        "Progress, not perfection! 🌟",
+                        "The best time to start was yesterday. The next best time is now! ⏰",
+                        "You're stronger than you think! 💎");
 
-    // ═══════════════════════════════════════════════════════════════════════
-    // DASHBOARD SUMMARY
-    // ═══════════════════════════════════════════════════════════════════════
+        // ═══════════════════════════════════════════════════════════════════════
+        // DASHBOARD SUMMARY
+        // ═══════════════════════════════════════════════════════════════════════
 
-    /**
-     * Get overview statistics for the dashboard
-     */
-    public DashboardSummary getSummary(User user) {
-        LocalDate today = LocalDate.now();
-        List<Habit> activeHabits = habitRepository.findByUserAndActiveOrderByCreatedAtDesc(user, true);
+        /**
+         * Get overview statistics for the dashboard
+         */
+        public DashboardSummary getSummary(User user) {
+                LocalDate today = LocalDate.now();
+                List<Habit> activeHabits = habitRepository.findByUserAndActiveOrderByCreatedAtDesc(user, true);
 
-        // Count today's completions
-        long completedToday = activeHabits.stream()
-                .filter(h -> checkInRepository.existsByHabitAndCheckInDate(h, today))
-                .count();
+                // Count today's completions
+                long completedToday = activeHabits.stream()
+                                .filter(h -> checkInRepository.existsByHabitAndCheckInDate(h, today))
+                                .count();
 
-        long totalActive = activeHabits.size();
+                long totalActive = activeHabits.size();
 
-        // Find best streak
-        Habit bestStreakHabit = activeHabits.stream()
-                .max(Comparator.comparing(Habit::getLongestStreak))
-                .orElse(null);
+                // Find best streak
+                Habit bestStreakHabit = activeHabits.stream()
+                                .max(Comparator.comparing(Habit::getLongestStreak))
+                                .orElse(null);
 
-        // Calculate totals
-        int currentStreakTotal = activeHabits.stream()
-                .mapToInt(Habit::getCurrentStreak)
-                .sum();
+                // Calculate totals
+                int currentStreakTotal = activeHabits.stream()
+                                .mapToInt(Habit::getCurrentStreak)
+                                .sum();
 
-        long totalCheckIns = activeHabits.stream()
-                .mapToLong(Habit::getTotalCheckIns)
-                .sum();
+                long totalCheckIns = activeHabits.stream()
+                                .mapToLong(Habit::getTotalCheckIns)
+                                .sum();
 
-        // Days since first habit
-        int daysActive = activeHabits.stream()
-                .map(Habit::getCreatedAt)
-                .filter(Objects::nonNull)
-                .min(Comparator.naturalOrder())
-                .map(createdAt -> (int) ChronoUnit.DAYS.between(createdAt.toLocalDate(), today))
-                .orElse(0);
+                // Days since first habit
+                int daysActive = activeHabits.stream()
+                                .map(Habit::getCreatedAt)
+                                .filter(Objects::nonNull)
+                                .min(Comparator.naturalOrder())
+                                .map(createdAt -> (int) ChronoUnit.DAYS.between(createdAt.toLocalDate(), today))
+                                .orElse(0);
 
-        double completionPercentage = totalActive > 0
-                ? (completedToday * 100.0) / totalActive
-                : 0;
+                double completionPercentage = totalActive > 0
+                                ? (completedToday * 100.0) / totalActive
+                                : 0;
 
-        return DashboardSummary.builder()
-                .totalHabits(habitRepository.countByUser(user))
-                .activeHabits(totalActive)
-                .completedToday(completedToday)
-                .remainingToday(totalActive - completedToday)
-                .completionPercentage(Math.round(completionPercentage * 10) / 10.0)
-                .currentStreakTotal(currentStreakTotal)
-                .longestStreak(bestStreakHabit != null ? bestStreakHabit.getLongestStreak() : 0)
-                .longestStreakHabit(bestStreakHabit != null ? bestStreakHabit.getName() : null)
-                .totalCheckIns(totalCheckIns)
-                .daysActive(daysActive)
-                .motivationalQuote(QUOTES.get(new Random().nextInt(QUOTES.size())))
-                .build();
-    }
+                // Count active (non-completed) goals
+                long activeGoalCount = goalRepository.countByUserAndActiveAndCompleted(user, true, false);
 
-    // ═══════════════════════════════════════════════════════════════════════
-    // WEEKLY PROGRESS
-    // ═══════════════════════════════════════════════════════════════════════
+                return DashboardSummary.builder()
+                                .totalHabits(habitRepository.countByUser(user))
+                                .activeHabits(totalActive)
+                                .activeGoals(activeGoalCount)
+                                .completedToday(completedToday)
+                                .remainingToday(totalActive - completedToday)
+                                .completionPercentage(Math.round(completionPercentage * 10) / 10.0)
+                                .todayProgress(Math.round(completionPercentage * 10) / 10.0)
+                                .currentStreakTotal(currentStreakTotal)
+                                .longestStreak(bestStreakHabit != null ? bestStreakHabit.getLongestStreak() : 0)
+                                .longestStreakHabit(bestStreakHabit != null ? bestStreakHabit.getName() : null)
+                                .totalCheckIns(totalCheckIns)
+                                .daysActive(daysActive)
+                                .motivationalQuote(QUOTES.get(new Random().nextInt(QUOTES.size())))
+                                .build();
+        }
 
-    /**
-     * Get progress for the last 7 days
-     */
-    public WeeklyProgress getWeeklyProgress(User user) {
-        LocalDate today = LocalDate.now();
-        LocalDate weekStart = today.minusDays(6);
+        // ═══════════════════════════════════════════════════════════════════════
+        // WEEKLY PROGRESS
+        // ═══════════════════════════════════════════════════════════════════════
 
-        List<Habit> activeHabits = habitRepository.findByUserAndActiveOrderByCreatedAtDesc(user, true);
-        List<WeeklyProgress.DayProgress> days = new ArrayList<>();
+        /**
+         * Get progress for the last 7 days
+         */
+        public WeeklyProgress getWeeklyProgress(User user) {
+                LocalDate today = LocalDate.now();
+                LocalDate weekStart = today.minusDays(6);
 
-        int totalCompletions = 0;
-        int totalPossible = 0;
+                List<Habit> activeHabits = habitRepository.findByUserAndActiveOrderByCreatedAtDesc(user, true);
+                List<WeeklyProgress.DayProgress> days = new ArrayList<>();
 
-        // Build data for each day
-        for (int i = 0; i < 7; i++) {
-            LocalDate date = weekStart.plusDays(i);
-            String dayName = date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+                int totalCompletions = 0;
+                int totalPossible = 0;
 
-            // Count completions for this day
-            int completed = 0;
-            for (Habit habit : activeHabits) {
-                if (checkInRepository.existsByHabitAndCheckInDate(habit, date)) {
-                    completed++;
+                // Build data for each day
+                for (int i = 0; i < 7; i++) {
+                        LocalDate date = weekStart.plusDays(i);
+                        String dayName = date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+
+                        // Count completions for this day
+                        int completed = 0;
+                        for (Habit habit : activeHabits) {
+                                if (checkInRepository.existsByHabitAndCheckInDate(habit, date)) {
+                                        completed++;
+                                }
+                        }
+
+                        int total = activeHabits.size();
+                        double percentage = total > 0 ? (completed * 100.0) / total : 0;
+
+                        days.add(WeeklyProgress.DayProgress.builder()
+                                        .date(date)
+                                        .dayName(dayName)
+                                        .completed(completed)
+                                        .total(total)
+                                        .percentage(Math.round(percentage * 10) / 10.0)
+                                        .isToday(date.equals(today))
+                                        .build());
+
+                        totalCompletions += completed;
+                        totalPossible += total;
                 }
-            }
 
-            int total = activeHabits.size();
-            double percentage = total > 0 ? (completed * 100.0) / total : 0;
+                double weeklyRate = totalPossible > 0
+                                ? (totalCompletions * 100.0) / totalPossible
+                                : 0;
 
-            days.add(WeeklyProgress.DayProgress.builder()
-                    .date(date)
-                    .dayName(dayName)
-                    .completed(completed)
-                    .total(total)
-                    .percentage(Math.round(percentage * 10) / 10.0)
-                    .isToday(date.equals(today))
-                    .build());
-
-            totalCompletions += completed;
-            totalPossible += total;
+                return WeeklyProgress.builder()
+                                .weekStart(weekStart)
+                                .weekEnd(today)
+                                .days(days)
+                                .totalCompletions(totalCompletions)
+                                .totalPossible(totalPossible)
+                                .weeklyCompletionRate(Math.round(weeklyRate * 10) / 10.0)
+                                .build();
         }
 
-        double weeklyRate = totalPossible > 0
-                ? (totalCompletions * 100.0) / totalPossible
-                : 0;
+        // ═══════════════════════════════════════════════════════════════════════
+        // MONTHLY CALENDAR
+        // ═══════════════════════════════════════════════════════════════════════
 
-        return WeeklyProgress.builder()
-                .weekStart(weekStart)
-                .weekEnd(today)
-                .days(days)
-                .totalCompletions(totalCompletions)
-                .totalPossible(totalPossible)
-                .weeklyCompletionRate(Math.round(weeklyRate * 10) / 10.0)
-                .build();
-    }
+        /**
+         * Get calendar data for a specific month
+         */
+        public MonthlyCalendar getMonthlyCalendar(User user, int year, int month) {
+                YearMonth yearMonth = YearMonth.of(year, month);
+                LocalDate monthStart = yearMonth.atDay(1);
+                LocalDate monthEnd = yearMonth.atEndOfMonth();
 
-    // ═══════════════════════════════════════════════════════════════════════
-    // MONTHLY CALENDAR
-    // ═══════════════════════════════════════════════════════════════════════
+                List<Habit> activeHabits = habitRepository.findByUserAndActiveOrderByCreatedAtDesc(user, true);
 
-    /**
-     * Get calendar data for a specific month
-     */
-    public MonthlyCalendar getMonthlyCalendar(User user, int year, int month) {
-        YearMonth yearMonth = YearMonth.of(year, month);
-        LocalDate monthStart = yearMonth.atDay(1);
-        LocalDate monthEnd = yearMonth.atEndOfMonth();
+                Set<LocalDate> allCheckedDates = new HashSet<>();
+                List<MonthlyCalendar.HabitMonthData> habitDataList = new ArrayList<>();
 
-        List<Habit> activeHabits = habitRepository.findByUserAndActiveOrderByCreatedAtDesc(user, true);
+                for (Habit habit : activeHabits) {
+                        List<HabitCheckIn> checkIns = checkInRepository
+                                        .findByHabitAndCheckInDateBetweenOrderByCheckInDateDesc(habit, monthStart,
+                                                        monthEnd);
 
-        Set<LocalDate> allCheckedDates = new HashSet<>();
-        List<MonthlyCalendar.HabitMonthData> habitDataList = new ArrayList<>();
+                        Set<LocalDate> habitCheckedDates = checkIns.stream()
+                                        .map(HabitCheckIn::getCheckInDate)
+                                        .collect(Collectors.toSet());
 
-        for (Habit habit : activeHabits) {
-            List<HabitCheckIn> checkIns = checkInRepository
-                    .findByHabitAndCheckInDateBetweenOrderByCheckInDateDesc(habit, monthStart, monthEnd);
+                        allCheckedDates.addAll(habitCheckedDates);
 
-            Set<LocalDate> habitCheckedDates = checkIns.stream()
-                    .map(HabitCheckIn::getCheckInDate)
-                    .collect(Collectors.toSet());
+                        habitDataList.add(MonthlyCalendar.HabitMonthData.builder()
+                                        .habitId(habit.getId())
+                                        .habitName(habit.getName())
+                                        .icon(habit.getIcon())
+                                        .checkedDates(habitCheckedDates)
+                                        .checkInCount(habitCheckedDates.size())
+                                        .currentStreak(habit.getCurrentStreak())
+                                        .build());
+                }
 
-            allCheckedDates.addAll(habitCheckedDates);
+                int daysInMonth = yearMonth.lengthOfMonth();
+                double completionRate = daysInMonth > 0
+                                ? (allCheckedDates.size() * 100.0) / daysInMonth
+                                : 0;
 
-            habitDataList.add(MonthlyCalendar.HabitMonthData.builder()
-                    .habitId(habit.getId())
-                    .habitName(habit.getName())
-                    .icon(habit.getIcon())
-                    .checkedDates(habitCheckedDates)
-                    .checkInCount(habitCheckedDates.size())
-                    .currentStreak(habit.getCurrentStreak())
-                    .build());
+                return MonthlyCalendar.builder()
+                                .year(year)
+                                .month(month)
+                                .monthName(yearMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH))
+                                .checkedDates(allCheckedDates)
+                                .habits(habitDataList)
+                                .totalDaysInMonth(daysInMonth)
+                                .daysWithCheckIns(allCheckedDates.size())
+                                .monthlyCompletionRate(Math.round(completionRate * 10) / 10.0)
+                                .build();
         }
 
-        int daysInMonth = yearMonth.lengthOfMonth();
-        double completionRate = daysInMonth > 0
-                ? (allCheckedDates.size() * 100.0) / daysInMonth
-                : 0;
+        // ═══════════════════════════════════════════════════════════════════════
+        // STREAKS LEADERBOARD
+        // ═══════════════════════════════════════════════════════════════════════
 
-        return MonthlyCalendar.builder()
-                .year(year)
-                .month(month)
-                .monthName(yearMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH))
-                .checkedDates(allCheckedDates)
-                .habits(habitDataList)
-                .totalDaysInMonth(daysInMonth)
-                .daysWithCheckIns(allCheckedDates.size())
-                .monthlyCompletionRate(Math.round(completionRate * 10) / 10.0)
-                .build();
-    }
+        /**
+         * Get user's habits sorted by streak (for leaderboard view)
+         */
+        public List<HabitResponse> getStreakLeaderboard(User user) {
+                LocalDate today = LocalDate.now();
 
-    // ═══════════════════════════════════════════════════════════════════════
-    // STREAKS LEADERBOARD
-    // ═══════════════════════════════════════════════════════════════════════
+                return habitRepository.findTopStreaksByUser(user).stream()
+                                .filter(Habit::getActive)
+                                .limit(10)
+                                .map(habit -> {
+                                        boolean checkedToday = checkInRepository.existsByHabitAndCheckInDate(habit,
+                                                        today);
+                                        return HabitResponse.fromEntity(habit, checkedToday);
+                                })
+                                .collect(Collectors.toList());
+        }
 
-    /**
-     * Get user's habits sorted by streak (for leaderboard view)
-     */
-    public List<HabitResponse> getStreakLeaderboard(User user) {
-        LocalDate today = LocalDate.now();
+        // ═══════════════════════════════════════════════════════════════════════
+        // ACHIEVEMENTS
+        // ═══════════════════════════════════════════════════════════════════════
 
-        return habitRepository.findTopStreaksByUser(user).stream()
-                .filter(Habit::getActive)
-                .limit(10)
-                .map(habit -> {
-                    boolean checkedToday = checkInRepository.existsByHabitAndCheckInDate(habit, today);
-                    return HabitResponse.fromEntity(habit, checkedToday);
-                })
-                .collect(Collectors.toList());
-    }
+        /**
+         * Get user's achievements with progress
+         */
+        public List<Achievement> getAchievements(User user) {
+                List<Habit> activeHabits = habitRepository.findByUserAndActiveOrderByCreatedAtDesc(user, true);
 
-    // ═══════════════════════════════════════════════════════════════════════
-    // ACHIEVEMENTS
-    // ═══════════════════════════════════════════════════════════════════════
+                // Calculate stats for achievement checking
+                int longestStreak = activeHabits.stream()
+                                .mapToInt(Habit::getLongestStreak)
+                                .max()
+                                .orElse(0);
 
-    /**
-     * Get user's achievements with progress
-     */
-    public List<Achievement> getAchievements(User user) {
-        List<Habit> activeHabits = habitRepository.findByUserAndActiveOrderByCreatedAtDesc(user, true);
+                long totalCheckIns = activeHabits.stream()
+                                .mapToLong(Habit::getTotalCheckIns)
+                                .sum();
 
-        // Calculate stats for achievement checking
-        int longestStreak = activeHabits.stream()
-                .mapToInt(Habit::getLongestStreak)
-                .max()
-                .orElse(0);
+                long totalHabits = habitRepository.countByUser(user);
 
-        long totalCheckIns = activeHabits.stream()
-                .mapToLong(Habit::getTotalCheckIns)
-                .sum();
+                // Check for perfect day
+                LocalDate today = LocalDate.now();
+                long completedToday = activeHabits.stream()
+                                .filter(h -> checkInRepository.existsByHabitAndCheckInDate(h, today))
+                                .count();
+                boolean hasPerfectDay = !activeHabits.isEmpty() && completedToday == activeHabits.size();
 
-        long totalHabits = habitRepository.countByUser(user);
+                List<Achievement> achievements = new ArrayList<>();
 
-        // Check for perfect day
-        LocalDate today = LocalDate.now();
-        long completedToday = activeHabits.stream()
-                .filter(h -> checkInRepository.existsByHabitAndCheckInDate(h, today))
-                .count();
-        boolean hasPerfectDay = !activeHabits.isEmpty() && completedToday == activeHabits.size();
+                // Streak achievements
+                achievements.add(createStreakAchievement(Achievement.AchievementType.FIRST_STREAK, longestStreak));
+                achievements.add(createStreakAchievement(Achievement.AchievementType.WEEK_WARRIOR, longestStreak));
+                achievements.add(createStreakAchievement(Achievement.AchievementType.FORTNIGHT_FIGHTER, longestStreak));
+                achievements.add(createStreakAchievement(Achievement.AchievementType.HABIT_MASTER, longestStreak));
+                achievements.add(createStreakAchievement(Achievement.AchievementType.LEGENDARY, longestStreak));
 
-        List<Achievement> achievements = new ArrayList<>();
+                // Consistency achievements
+                achievements
+                                .add(createConsistencyAchievement(Achievement.AchievementType.GETTING_STARTED,
+                                                (int) totalCheckIns));
+                achievements.add(createConsistencyAchievement(Achievement.AchievementType.CONSISTENT,
+                                (int) totalCheckIns));
+                achievements.add(createConsistencyAchievement(Achievement.AchievementType.DEDICATED,
+                                (int) totalCheckIns));
+                achievements.add(createConsistencyAchievement(Achievement.AchievementType.UNSTOPPABLE,
+                                (int) totalCheckIns));
 
-        // Streak achievements
-        achievements.add(createStreakAchievement(Achievement.AchievementType.FIRST_STREAK, longestStreak));
-        achievements.add(createStreakAchievement(Achievement.AchievementType.WEEK_WARRIOR, longestStreak));
-        achievements.add(createStreakAchievement(Achievement.AchievementType.FORTNIGHT_FIGHTER, longestStreak));
-        achievements.add(createStreakAchievement(Achievement.AchievementType.HABIT_MASTER, longestStreak));
-        achievements.add(createStreakAchievement(Achievement.AchievementType.LEGENDARY, longestStreak));
+                // Milestone achievements
+                achievements.add(
+                                createMilestoneAchievement(Achievement.AchievementType.FIRST_HABIT, (int) totalHabits));
+                achievements.add(createMilestoneAchievement(Achievement.AchievementType.HABIT_COLLECTOR,
+                                (int) totalHabits));
+                achievements.add(Achievement.fromType(
+                                Achievement.AchievementType.PERFECT_DAY,
+                                hasPerfectDay ? 1 : 0,
+                                hasPerfectDay,
+                                null));
 
-        // Consistency achievements
-        achievements
-                .add(createConsistencyAchievement(Achievement.AchievementType.GETTING_STARTED, (int) totalCheckIns));
-        achievements.add(createConsistencyAchievement(Achievement.AchievementType.CONSISTENT, (int) totalCheckIns));
-        achievements.add(createConsistencyAchievement(Achievement.AchievementType.DEDICATED, (int) totalCheckIns));
-        achievements.add(createConsistencyAchievement(Achievement.AchievementType.UNSTOPPABLE, (int) totalCheckIns));
+                // Sort: unlocked first, then by progress
+                achievements.sort((a, b) -> {
+                        if (a.isUnlocked() != b.isUnlocked()) {
+                                return a.isUnlocked() ? -1 : 1;
+                        }
+                        return Double.compare(b.getProgressPercentage(), a.getProgressPercentage());
+                });
 
-        // Milestone achievements
-        achievements.add(createMilestoneAchievement(Achievement.AchievementType.FIRST_HABIT, (int) totalHabits));
-        achievements.add(createMilestoneAchievement(Achievement.AchievementType.HABIT_COLLECTOR, (int) totalHabits));
-        achievements.add(Achievement.fromType(
-                Achievement.AchievementType.PERFECT_DAY,
-                hasPerfectDay ? 1 : 0,
-                hasPerfectDay,
-                null));
+                return achievements;
+        }
 
-        // Sort: unlocked first, then by progress
-        achievements.sort((a, b) -> {
-            if (a.isUnlocked() != b.isUnlocked()) {
-                return a.isUnlocked() ? -1 : 1;
-            }
-            return Double.compare(b.getProgressPercentage(), a.getProgressPercentage());
-        });
+        private Achievement createStreakAchievement(Achievement.AchievementType type, int currentStreak) {
+                boolean unlocked = currentStreak >= type.requiredProgress;
+                return Achievement.fromType(type, Math.min(currentStreak, type.requiredProgress), unlocked, null);
+        }
 
-        return achievements;
-    }
+        private Achievement createConsistencyAchievement(Achievement.AchievementType type, int totalCheckIns) {
+                boolean unlocked = totalCheckIns >= type.requiredProgress;
+                return Achievement.fromType(type, Math.min(totalCheckIns, type.requiredProgress), unlocked, null);
+        }
 
-    private Achievement createStreakAchievement(Achievement.AchievementType type, int currentStreak) {
-        boolean unlocked = currentStreak >= type.requiredProgress;
-        return Achievement.fromType(type, Math.min(currentStreak, type.requiredProgress), unlocked, null);
-    }
-
-    private Achievement createConsistencyAchievement(Achievement.AchievementType type, int totalCheckIns) {
-        boolean unlocked = totalCheckIns >= type.requiredProgress;
-        return Achievement.fromType(type, Math.min(totalCheckIns, type.requiredProgress), unlocked, null);
-    }
-
-    private Achievement createMilestoneAchievement(Achievement.AchievementType type, int count) {
-        boolean unlocked = count >= type.requiredProgress;
-        return Achievement.fromType(type, Math.min(count, type.requiredProgress), unlocked, null);
-    }
+        private Achievement createMilestoneAchievement(Achievement.AchievementType type, int count) {
+                boolean unlocked = count >= type.requiredProgress;
+                return Achievement.fromType(type, Math.min(count, type.requiredProgress), unlocked, null);
+        }
 }

@@ -104,9 +104,9 @@ public class User implements UserDetails {
     /**
      * Email verification status
      */
-    @Column(name = "email_verified")
+    @Column(name = "email_verified", columnDefinition = "boolean default false")
     @Builder.Default
-    private boolean emailVerified = false;
+    private Boolean emailVerified = false;
 
     /**
      * ─────────────────────────────────────────────────────────────────────

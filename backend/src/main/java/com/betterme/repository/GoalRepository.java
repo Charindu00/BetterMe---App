@@ -41,6 +41,11 @@ public interface GoalRepository extends JpaRepository<Goal, Long> {
     long countByUserAndCompleted(User user, Boolean completed);
 
     /**
+     * Count goals by active and completion status
+     */
+    long countByUserAndActiveAndCompleted(User user, Boolean active, Boolean completed);
+
+    /**
      * Find goals with deadlines coming up
      */
     @Query("SELECT g FROM Goal g WHERE g.user = ?1 AND g.deadline <= ?2 AND g.completed = false AND g.active = true")

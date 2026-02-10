@@ -24,7 +24,7 @@
   --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 
   /* Backgrounds */
-  --bg-primary: #F8FAFC;
+  --bg-primary: #EEF2F7;
   --bg-secondary: #FFFFFF;
   --bg-tertiary: #F1F5F9;
   --bg-glass: rgba(255, 255, 255, 0.8);
@@ -271,7 +271,7 @@ a:hover {
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-light);
   padding: 1.5rem;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
   transition: all var(--transition-normal);
 }
 

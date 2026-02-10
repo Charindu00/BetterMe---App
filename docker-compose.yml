@@ -58,6 +58,15 @@ services:
       # Admin credentials
       ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@betterme.com}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin123}
+      # Gemini AI
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-your-api-key-here}
+      # Email SMTP Configuration
+      SPRING_MAIL_HOST: smtp.gmail.com
+      SPRING_MAIL_PORT: 587
+      SPRING_MAIL_USERNAME: ${GMAIL_USERNAME:-charindudilminda5@gmail.com}
+      SPRING_MAIL_PASSWORD: ${GMAIL_APP_PASSWORD:-ixaihuuvshkitece}
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: "true"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: "true"
     ports:
       - "8080:8080"
     depends_on:

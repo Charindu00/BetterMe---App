@@ -209,28 +209,56 @@
 }
 
 /* Achievements */
-.achievements-list {
-    display: flex;
-    flex-direction: column;
+.achievements-full {
+    grid-column: 1 / -1;
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 0.75rem;
 }
 
 .achievement-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.75rem;
-    padding: 0.75rem;
+    padding: 1rem;
     background: var(--bg-tertiary);
     border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    border: 1px solid transparent;
+}
+
+.achievement-item.unlocked {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(52, 211, 153, 0.08) 100%);
+    border-color: rgba(16, 185, 129, 0.2);
+}
+
+.achievement-item.locked {
+    opacity: 0.6;
+}
+
+.achievement-item.locked .achievement-icon {
+    filter: grayscale(0.7);
+}
+
+.achievement-item:hover {
+    opacity: 1;
+    transform: translateY(-1px);
 }
 
 .achievement-icon {
     font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 2px;
 }
 
 .achievement-info {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    min-width: 0;
 }
 
 .achievement-name {
@@ -242,6 +270,42 @@
 .achievement-desc {
     font-size: 0.8rem;
     color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.achievement-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.achievement-progress-bar {
+    flex: 1;
+    height: 6px;
+    background: var(--border-light);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.achievement-progress-fill {
+    height: 100%;
+    background: var(--gradient-primary);
+    border-radius: 3px;
+    transition: width 0.5s ease;
+}
+
+.achievement-progress-text {
+    font-size: 0.7rem;
+    color: var(--text-tertiary);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.achievement-unlocked-badge {
+    font-size: 0.75rem;
+    color: var(--success);
+    font-weight: 600;
 }
 
 /* Empty State */
@@ -260,6 +324,10 @@
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .achievements-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 768px) {
@@ -275,5 +343,9 @@
 
     .loading-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .achievements-grid {
+        grid-template-columns: 1fr;
     }
 }

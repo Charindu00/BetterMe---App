@@ -28,11 +28,17 @@ public class DashboardSummary {
     private long activeHabits;
 
     // ─────────────────────────────────────────────────────────────────────
+    // GOAL COUNTS
+    // ─────────────────────────────────────────────────────────────────────
+    private long activeGoals;
+
+    // ─────────────────────────────────────────────────────────────────────
     // TODAY'S PROGRESS
     // ─────────────────────────────────────────────────────────────────────
     private long completedToday;
     private long remainingToday;
     private double completionPercentage; // 0-100
+    private double todayProgress; // same as completionPercentage, for frontend compatibility
 
     // ─────────────────────────────────────────────────────────────────────
     // STREAK STATS

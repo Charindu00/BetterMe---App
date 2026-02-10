@@ -126,7 +126,7 @@ public class AuthController {
         }
 
         User user = optUser.get();
-        if (user.isEmailVerified()) {
+        if (user.getEmailVerified()) {
             return ResponseEntity.ok(Map.of(
                     "success", true,
                     "message", "Email is already verified"));
