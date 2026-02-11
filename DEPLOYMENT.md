@@ -46,6 +46,34 @@ This guide will help you deploy the **BetterMe** application to the cloud for fr
 
 ---
 
+## 🚨 Alternative: "No Credit Card" Deployment
+
+If Render asks for a card, use this combination instead:
+
+### 1. Database: Neon.tech (Best Free Postgres)
+1.  Go to [neon.tech](https://neon.tech) and sign up/login.
+2.  Create a **New Project**.
+3.  Copy the **Connection String** (Postgres URL). It looks like `postgres://user:pass@ep-xyz.aws.neon.tech/neondb...`.
+    *   *Note*: Ensure you select "Pooled connection" if available, or just the direct link.
+
+### 2. Backend: Koyeb (Good Docker Support)
+1.  Go to [koyeb.com](https://koyeb.com).
+2.  **Create App** -> **GitHub**.
+3.  Select your repository.
+4.  **Builder**: Dockerfile.
+5.  **Environment Variables**:
+    *   `SPRING_DATASOURCE_URL`: Paste your **Neon Connection String**.
+        *   **Important**: Append `?sslmode=require` to the end of the Neon URL if it's not there.
+    *   `SPRING_DATASOURCE_USERNAME`: (Extract from Neon URL)
+    *   `SPRING_DATASOURCE_PASSWORD`: (Extract from Neon URL)
+    *   `SPRING_PROFILES_ACTIVE`: `docker`
+    *   `JWT_SECRET`, `GEMINI_API_KEY`, etc. (Same as above).
+6.  Deploy!
+
+---
+
+---
+
 ## 3️⃣ Frontend Deployment (Vercel)
 
 1.  Log in to **Vercel** and clicking **Add New** -> **Project**.
