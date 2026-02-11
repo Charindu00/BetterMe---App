@@ -1,97 +1,102 @@
 # 🚀 Deployment Guide for BetterMe
 
-This guide will help you deploy the **BetterMe** application to the cloud for free using **Render** (Backend & Database) and **Vercel** (Frontend).
+Choose one of the following paths to deploy your application.
 
-## 📦 Prerequisites
+*   **Option 1: Render (Easiest)** - *May require a credit card.*
+*   **Option 2: Neon + Koyeb (No Card Required)** - *Best free tier combo if Render asks for a card.*
+
+---
+
+## 📦 Prerequisites (For Both Options)
 
 1.  **GitHub Account**: Ensure your code is pushed to a GitHub repository.
-2.  **Render Account**: Sign up at [render.com](https://render.com).
-3.  **Vercel Account**: Sign up at [vercel.com](https://vercel.com).
+2.  **Vercel Account**: Sign up at [vercel.com](https://vercel.com) (for Frontend).
 
 ---
 
-## 1️⃣ Database Deployment (PostgreSQL on Render)
+## 🔵 Option 1: Render (Database + Backend)
 
+### 1. Database (PostgreSQL)
 1.  Log in to **Render** and click **New +** -> **PostgreSQL**.
 2.  **Name**: `betterme-db`
-3.  **Region**: Choose the one closest to you (e.g., Singapore, Frankfurt).
-4.  **Version**: 16 (Standard).
-5.  **Instance Type**: **Free**.
-6.  Click **Create Database**.
-7.  Once created, copy the **Internal DB URL** (starts with `postgres://...`) and keep it safe. You'll need it for the Backend.
+3.  **Region**: Choose closest to you.
+4.  **Instance Type**: **Free**.
+5.  Click **Create Database**.
+6.  Copy the **Internal DB URL** (starts with `postgres://...`).
 
----
-
-## 2️⃣ Backend Deployment (Docker on Render)
-
+### 2. Backend (Docker)
 1.  Click **New +** -> **Web Service**.
 2.  Connect your **GitHub repository**.
 3.  **Name**: `betterme-api`
-4.  **Region**: Same as your database.
-5.  **Runtime**: **Docker** (Render will automatically detect the `Dockerfile` in `backend/`).
-6.  **Instance Type**: **Free**.
-7.  **Environment Variables** (Add these under "Advanced"):
+4.  **Runtime**: **Docker**.
+5.  **Instance Type**: **Free**.
+6.  **Environment Variables**:
     *   `SPRING_PROFILES_ACTIVE`: `docker`
-    *   `SPRING_DATASOURCE_URL`: The **Internal DB URL** you copied from the Database step.
-    *   `SPRING_DATASOURCE_USERNAME`: `betterme` (or whatever username Render assigned, usually in the connection string)
-    *   `SPRING_DATASOURCE_PASSWORD`: The password from Render Dashboard.
-    *   `JWT_SECRET`: Generate a long random string (e.g., `mySup3rS3cr3tKeyThatIsVeryLong123!`).
+    *   `SPRING_DATASOURCE_URL`: Your **Internal DB URL**.
+    *   `JWT_SECRET`: Generate a long random string.
     *   `GEMINI_API_KEY`: Your Google Gemini API Key.
-    *   `GMAIL_USERNAME`: Your Gmail address (for emails).
-    *   `GMAIL_APP_PASSWORD`: Your Gmail App Password.
-    *   `FRONTEND_URL`: The URL of your frontend (we will get this in Step 3, you can come back and update it).
-8.  Click **Create Web Service**.
-    *   Render will build your Docker image (takes 5-10 mins).
-    *   Once live, copy your backend URL (e.g., `https://betterme-api.onrender.com`).
+    *   `GMAIL_USERNAME` / `GMAIL_APP_PASSWORD`: Your Gmail credentials.
+    *   `FRONTEND_URL`: `http://localhost` (You will update this later).
+7.  Click **Create Web Service**. Changes will be live in 5-10 mins.
+8.  Copy your backend URL (e.g., `https://betterme-api.onrender.com`).
 
 ---
 
-## 🚨 Alternative: "No Credit Card" Deployment
+## � Option 2: Neon + Koyeb (No Credit Card)
 
-If Render asks for a card, use this combination instead:
-
-### 1. Database: Neon.tech (Best Free Postgres)
+### 1. Database: Neon.tech
 1.  Go to [neon.tech](https://neon.tech) and sign up/login.
 2.  Create a **New Project**.
-3.  Copy the **Connection String** (Postgres URL). It looks like `postgres://user:pass@ep-xyz.aws.neon.tech/neondb...`.
-    *   *Note*: Ensure you select "Pooled connection" if available, or just the direct link.
+3.  Copy the **Connection String**. It looks like `postgres://user:pass@ep-xyz.aws.neon.tech/neondb...`.
+    *   *Tip*: Ensure "Pooled connection" is checked if available.
 
-### 2. Backend: Koyeb (Good Docker Support)
+### 2. Backend: Koyeb
 1.  Go to [koyeb.com](https://koyeb.com).
 2.  **Create App** -> **GitHub**.
 3.  Select your repository.
 4.  **Builder**: Dockerfile.
 5.  **Environment Variables**:
     *   `SPRING_DATASOURCE_URL`: Paste your **Neon Connection String**.
-        *   **Important**: Append `?sslmode=require` to the end of the Neon URL if it's not there.
-    *   `SPRING_DATASOURCE_USERNAME`: (Extract from Neon URL)
-    *   `SPRING_DATASOURCE_PASSWORD`: (Extract from Neon URL)
+        *   **Important**: Append `?sslmode=require` to the end if not present.
     *   `SPRING_PROFILES_ACTIVE`: `docker`
-    *   `JWT_SECRET`, `GEMINI_API_KEY`, etc. (Same as above).
+    *   `JWT_SECRET`: Generate a long random string.
+    *   `GEMINI_API_KEY`: Your Google Gemini API Key.
+    *   `GMAIL_USERNAME` / `GMAIL_APP_PASSWORD`: Your Gmail credentials.
+    *   `FRONTEND_URL`: `http://localhost` (You will update this later).
 6.  Deploy!
+7.  Copy your backend URL (e.g., `https://betterme-api.koyeb.app`).
 
 ---
 
----
+## 🎨 3. Frontend Deployment (Vercel) - For BOTH Options
 
-## 3️⃣ Frontend Deployment (Vercel)
-
-1.  Log in to **Vercel** and clicking **Add New** -> **Project**.
+1.  Log in to **Vercel** and click **Add New** -> **Project**.
 2.  Import your **GitHub repository**.
 3.  **Framework Preset**: **Vite**.
 4.  **Root Directory**: Click "Edit" and select `frontend`.
 5.  **Environment Variables**:
-    *   `VITE_API_URL`: Paste your **Render Backend URL** (e.g., `https://betterme-api.onrender.com`). **IMPORTANT**: No trailing slash `/` at the end.
+    *   `VITE_API_URL`: Paste your **Backend URL** (from Render or Koyeb).
+        *   *Example*: `https://betterme-api.koyeb.app` (No trailing slash `/`)
 6.  Click **Deploy**.
-7.  Vercel will build and deploy your site in ~1 minute.
-8.  Once done, you'll get a domain (e.g., `https://betterme-app.vercel.app`).
+7.  Once done, copy your new **Frontend Domain** (e.g., `https://betterme-app.vercel.app`).
 
 ---
 
-## 4️⃣ Final Connection
+## 🔗 4. Final Connection (Update CORS)
 
-1.  Go back to **Render** -> **betterme-api** -> **Environment**.
-2.  Add/Update `FRONTEND_URL` with your **Vercel Frontend URL** (e.g., `https://betterme-app.vercel.app`).
-3.  Render will restart the backend.
+Now that you have the Frontend URL, go back and update the Backend so it allows requests from your new site.
 
-**🎉 Done! Your app is now live!**
+### If using Option 1 (Render):
+1.  Go to **Render Dashboard** -> **betterme-api** -> **Environment**.
+2.  Edit `FRONTEND_URL` value.
+3.  Paste your Vercel URL (e.g., `https://betterme-app.vercel.app`).
+4.  Save Changes (Render will auto-deploy).
+
+### If using Option 2 (Koyeb):
+1.  Go to **Koyeb Dashboard** -> **betterme-api** -> **Settings**.
+2.  Go to **Environment Variables**.
+3.  Edit `FRONTEND_URL`.
+4.  Paste your Vercel URL (e.g., `https://betterme-app.vercel.app`).
+5.  Save and Redploy.
+
+**🎉 Congratulations! Your full-stack app is live!**
