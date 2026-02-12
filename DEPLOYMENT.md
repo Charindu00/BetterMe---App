@@ -50,6 +50,12 @@ Choose one of the following paths to deploy your application.
 3.  Copy the **Connection String**. It looks like `postgres://user:pass@ep-xyz.aws.neon.tech/neondb...`.
     *   *Tip*: Ensure "Pooled connection" is checked if available.
 
+    > **Lost your connection string?**
+    > 1. Go to your Neon **Dashboard**.
+    > 2. Look for the **Connection Details** widget on the right.
+    > 3. Select **Postgres** and ensure **Pooled connection** is checked.
+    > 4. Copy the string (it starts with `postgres://`).
+
 ### 2. Backend: Koyeb
 1.  Go to [koyeb.com](https://koyeb.com).
 2.  **Create App** -> **GitHub**.
