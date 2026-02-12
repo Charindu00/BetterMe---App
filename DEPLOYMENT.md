@@ -61,16 +61,29 @@ Choose one of the following paths to deploy your application.
 2.  **Create App** -> **GitHub**.
 3.  Select your repository.
 4.  **Builder**: Dockerfile.
-5.  **Environment Variables**:
-    *   `SPRING_DATASOURCE_URL`: Paste your **Neon Connection String**.
-        *   **Important**: Append `?sslmode=require` to the end if not present.
-    *   `SPRING_PROFILES_ACTIVE`: `docker`
-    *   `JWT_SECRET`: Generate a long random string.
-    *   `GEMINI_API_KEY`: Your Google Gemini API Key.
-    *   `GMAIL_USERNAME` / `GMAIL_APP_PASSWORD`: Your Gmail credentials.
-    *   `FRONTEND_URL`: `http://localhost` (You will update this later).
-6.  Deploy!
-7.  Copy your backend URL (e.g., `https://betterme-api.koyeb.app`).
+6.  **Environment Variables**:
+    You need to add these one by one using the **"Add another"** button.
+
+    | Name (Left Box) | Value (Right Box) | Note |
+    | :--- | :--- | :--- |
+    | `SPRING_PROFILES_ACTIVE` | `docker` | |
+    | `JWT_SECRET` | *(Random long string)* | e.g., `s3cr3t-k3y-123456` |
+    | `GEMINI_API_KEY` | *(Your Gemini Key)* | Starts with `AIza...` |
+    | `GMAIL_USERNAME` | *(Your Gmail)* | |
+    | `GMAIL_APP_PASSWORD` | *(Your App Password)* | |
+    | `FRONTEND_URL` | `http://localhost` | Update this later after Vercel deploy |
+    
+    **For Database (Extract from your Neon String):**
+    *If your Neon string is:* `postgres://myuser:mypassword@ep-cool-123.aws.neon.tech/neondb`
+
+    | Name | Value Example |
+    | :--- | :--- |
+    | `SPRING_DATASOURCE_URL` | `jdbc:postgresql://ep-cool-123.aws.neon.tech/neondb?sslmode=require` | **Replace `postgres://` with `jdbc:postgresql://` and REMOVE user:pass@** |
+    | `SPRING_DATASOURCE_USERNAME` | `myuser` | The part between `//` and `:` |
+    | `SPRING_DATASOURCE_PASSWORD` | `mypassword` | The part between `:` and `@` |
+
+7.  Click **Deploy**.
+8.  Copy your backend URL (e.g., `https://betterme-api.koyeb.app`).
 
 ---
 
