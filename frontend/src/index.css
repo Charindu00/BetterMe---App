@@ -1,7 +1,7 @@
-﻿   BETTERME - DESIGN SYSTEM
-   Premium theme with dark/light modes and gradient accents
+﻿/* BETTERME - DESIGN SYSTEM */
+/* Premium theme with dark/light modes and gradient accents */
 
-   CSS VARIABLES - LIGHT THEME (Default)
+/* CSS VARIABLES - LIGHT THEME (Default) */
 :root {
   /* Brand Colors */
   --primary: #6366F1;
@@ -63,7 +63,7 @@
   --font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-   DARK THEME
+/* DARK THEME */
 [data-theme="dark"] {
   --primary: #818CF8;
   --primary-light: #A5B4FC;
@@ -101,7 +101,7 @@
   --shadow-glow: 0 0 30px rgba(129, 140, 248, 0.4);
 }
 
-   GLOBAL RESET & BASE STYLES
+/* GLOBAL RESET & BASE STYLES */
 *,
 *::before,
 *::after {
@@ -125,7 +125,7 @@ body {
   transition: background var(--transition-normal), color var(--transition-normal);
 }
 
-   TYPOGRAPHY
+/* TYPOGRAPHY */
 h1,
 h2,
 h3,
@@ -167,7 +167,7 @@ a:hover {
   color: var(--primary-light);
 }
 
-   UTILITY CLASSES
+/* UTILITY CLASSES */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -189,7 +189,7 @@ a:hover {
   border: 1px solid var(--border-light);
 }
 
-   BUTTONS
+/* BUTTONS */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -248,7 +248,7 @@ a:hover {
   font-size: 0.875rem;
 }
 
-   CARDS
+/* CARDS */
 .card {
   background: var(--bg-secondary);
   border-radius: var(--radius-lg);
@@ -269,7 +269,7 @@ a:hover {
   border: none;
 }
 
-   FORMS
+/* FORMS */
 .input-group {
   margin-bottom: 1.25rem;
 }
@@ -304,7 +304,7 @@ a:hover {
   color: var(--text-tertiary);
 }
 
-   BADGES
+/* BADGES */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -337,7 +337,7 @@ a:hover {
   color: white;
 }
 
-   ANIMATIONS
+/* ANIMATIONS */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -392,11 +392,11 @@ a:hover {
   animation: slideIn 0.3s ease forwards;
 }
 
-   LOADING STATES
+/* LOADING STATES */
 .skeleton {
   background: linear-gradient(90deg,
-      var(--bg-tertiary) 25%,
-      var(--bg-secondary) 50%,
+/* var(--bg-tertiary) 25%, */
+/* var(--bg-secondary) 50%, */
       var(--bg-tertiary) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
@@ -418,7 +418,7 @@ a:hover {
   }
 }
 
-   RESPONSIVE
+/* RESPONSIVE */
 @media (max-width: 768px) {
   h1 {
     font-size: 2rem;

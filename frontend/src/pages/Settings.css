@@ -1,4 +1,4 @@
-﻿   SETTINGS PAGE STYLES
+﻿/* SETTINGS PAGE STYLES */
 
 .settings {
     padding: 2rem 0;
@@ -21,7 +21,7 @@
     letter-spacing: 0.05em;
 }
 
-   AVATAR SECTION
+/* AVATAR SECTION */
 .avatar-section {
     display: flex;
     align-items: center;
@@ -114,7 +114,7 @@
     cursor: not-allowed;
 }
 
-   SETTING ROWS
+/* SETTING ROWS */
 .setting-row {
     display: flex;
     align-items: center;
@@ -227,7 +227,7 @@
     animation: fadeIn 0.3s ease;
 }
 
-   PASSWORD FORM
+/* PASSWORD FORM */
 .password-form {
     display: flex;
     flex-direction: column;
@@ -291,7 +291,7 @@
     }
 }
 
-   THEME SWITCH
+/* THEME SWITCH */
 .theme-switch {
     display: flex;
     align-items: center;
@@ -347,7 +347,7 @@
     color: var(--text-secondary);
 }
 
-   LOGOUT
+/* LOGOUT */
 .logout-btn {
     display: flex;
     align-items: center;
@@ -369,7 +369,7 @@
     color: white;
 }
 
-   RESPONSIVE
+/* RESPONSIVE */
 @media (max-width: 640px) {
     .avatar-section {
         flex-direction: column;
