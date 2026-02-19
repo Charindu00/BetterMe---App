@@ -1,4 +1,4 @@
-package com.betterme.dto;
+﻿package com.betterme.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,9 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * ═══════════════════════════════════════════════════════════════════════════
  * RESPONSE DTO - What we SEND to the client
- * ═══════════════════════════════════════════════════════════════════════════
  * 
  * After successful login/register, we return:
  * - JWT token (for future authenticated requests)

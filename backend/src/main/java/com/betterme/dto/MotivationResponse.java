@@ -1,4 +1,4 @@
-package com.betterme.dto;
+﻿package com.betterme.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,16 +8,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Motivation Response DTO ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ Response from the AI Motivation Coach. ║
- * ║ ║
- * ║ Includes: ║
- * ║ - The AI-generated message ║
- * ║ - Type of motivation (daily, habit-specific, celebration) ║
- * ║ - Whether it came from AI or fallback ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Data
 @Builder

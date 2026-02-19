@@ -1,4 +1,4 @@
-package com.betterme.service;
+﻿package com.betterme.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,18 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Gemini API Service ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ This service handles HTTP communication with Google's Gemini AI API. ║
- * ║ ║
- * ║ Key concepts: ║
- * ║ 1. @Value injects values from application.yml ║
- * ║ 2. RestTemplate is Spring's HTTP client ║
- * ║ 3. We build the request body matching Gemini's expected format ║
- * ║ ║
- * ║ API Docs: https://ai.google.dev/docs ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Service
 @Slf4j
@@ -44,9 +32,7 @@ public class GeminiService {
     }
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * SEND PROMPT TO GEMINI
-     * ─────────────────────────────────────────────────────────────────────
      * Sends a text prompt to Gemini and returns the generated response.
      * 
      * @param prompt The text prompt to send
@@ -90,9 +76,7 @@ public class GeminiService {
     }
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * PARSE GEMINI RESPONSE
-     * ─────────────────────────────────────────────────────────────────────
      * Extracts the text from Gemini's JSON response structure
      */
     private String parseGeminiResponse(String jsonResponse) {
@@ -121,9 +105,7 @@ public class GeminiService {
     }
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * FALLBACK RESPONSE
-     * ─────────────────────────────────────────────────────────────────────
      * Returns a default message when API is unavailable
      */
     private String getFallbackResponse() {

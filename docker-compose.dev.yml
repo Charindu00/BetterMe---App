@@ -1,13 +1,4 @@
-# ╔══════════════════════════════════════════════════════════════════════════╗
-# ║ DEVELOPMENT ONLY: PostgreSQL for Local Development                       ║
-# ╠══════════════════════════════════════════════════════════════════════════╣
-# ║ Use this when developing locally:                                        ║
-# ║   docker-compose -f docker-compose.dev.yml up -d                         ║
-# ║                                                                          ║
-# ║ Then run Spring Boot normally:                                           ║
-# ║   cd backend && mvn spring-boot:run                                      ║
-# ╚══════════════════════════════════════════════════════════════════════════╝
-
+﻿
 services:
   betterme-db:
     image: postgres:15-alpine

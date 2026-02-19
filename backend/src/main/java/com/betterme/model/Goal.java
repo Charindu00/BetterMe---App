@@ -1,4 +1,4 @@
-package com.betterme.model;
+﻿package com.betterme.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -13,21 +13,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Goal Entity ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ Goals are measurable targets users set for themselves. ║
- * ║ ║
- * ║ Examples: ║
- * ║ - "Read 12 books this year" (COUNT, target=12) ║
- * ║ - "Achieve a 30-day meditation streak" (STREAK, target=30) ║
- * ║ - "Exercise for 100 hours" (DURATION, target=6000 minutes) ║
- * ║ ║
- * ║ Key fields: ║
- * ║ - targetValue: What they're aiming for ║
- * ║ - currentValue: Current progress ║
- * ║ - deadline: Optional deadline ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Entity
 @Table(name = "goals")
@@ -41,9 +26,7 @@ public class Goal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // ─────────────────────────────────────────────────────────────────────
     // GOAL DETAILS
-    // ─────────────────────────────────────────────────────────────────────
 
     @NotBlank(message = "Goal title is required")
     @Column(nullable = false)
@@ -68,9 +51,7 @@ public class Goal {
      */
     private String category;
 
-    // ─────────────────────────────────────────────────────────────────────
     // PROGRESS TRACKING
-    // ─────────────────────────────────────────────────────────────────────
 
     @NotNull
     @Positive(message = "Target must be positive")
@@ -86,9 +67,7 @@ public class Goal {
      */
     private String unit;
 
-    // ─────────────────────────────────────────────────────────────────────
     // DATES
-    // ─────────────────────────────────────────────────────────────────────
 
     @Column(name = "start_date")
     private LocalDate startDate;
@@ -99,9 +78,7 @@ public class Goal {
     @Column(name = "completed_at")
     private LocalDateTime completedAt;
 
-    // ─────────────────────────────────────────────────────────────────────
     // RELATIONSHIPS
-    // ─────────────────────────────────────────────────────────────────────
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -114,9 +91,7 @@ public class Goal {
     @JoinColumn(name = "linked_habit_id")
     private Habit linkedHabit;
 
-    // ─────────────────────────────────────────────────────────────────────
     // STATUS
-    // ─────────────────────────────────────────────────────────────────────
 
     @Builder.Default
     private Boolean active = true;
@@ -124,9 +99,7 @@ public class Goal {
     @Builder.Default
     private Boolean completed = false;
 
-    // ─────────────────────────────────────────────────────────────────────
     // TIMESTAMPS
-    // ─────────────────────────────────────────────────────────────────────
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -148,9 +121,7 @@ public class Goal {
         this.updatedAt = LocalDateTime.now();
     }
 
-    // ─────────────────────────────────────────────────────────────────────
     // HELPER METHODS
-    // ─────────────────────────────────────────────────────────────────────
 
     /**
      * Calculate progress percentage (0-100)

@@ -1,4 +1,4 @@
-package com.betterme.model;
+﻿package com.betterme.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -17,23 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Entity Class ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ An ENTITY represents a table in the database. ║
- * ║ Each instance of this class = one row in the "users" table ║
- * ║ ║
- * ║ JPA (Java Persistence API) annotations tell Spring how to map ║
- * ║ this Java class to database columns. ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  * 
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LOMBOK ANNOTATIONS (Reduces Boilerplate Code): ║
- * ║ @Data = Generates getters, setters, equals, hashCode, toString ║
- * ║ @Builder = Generates builder pattern: User.builder().name().build() ║
- * ║ @NoArgsConstructor = Generates empty constructor: new User() ║
- * ║ @AllArgsConstructor = Constructor with all fields ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Entity // Marks this as a JPA entity (database table)
 @Table(name = "users") // Table name in database
@@ -44,9 +28,7 @@ import java.util.List;
 public class User implements UserDetails {
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * PRIMARY KEY
-     * ─────────────────────────────────────────────────────────────────────
      * 
      * @Id marks this as the primary key
      * @GeneratedValue tells database to auto-generate IDs (1, 2, 3...)
@@ -56,9 +38,7 @@ public class User implements UserDetails {
     private Long id;
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * VALIDATION ANNOTATIONS
-     * ─────────────────────────────────────────────────────────────────────
      * These validate data BEFORE it reaches the database
      * 
      * @NotBlank = Cannot be null or empty
@@ -82,9 +62,7 @@ public class User implements UserDetails {
     private String password;
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * USER ROLE
-     * ─────────────────────────────────────────────────────────────────────
      * Determines access level: USER or ADMIN
      * 
      * @Enumerated(STRING) stores the enum as text ("USER", "ADMIN")
@@ -109,9 +87,7 @@ public class User implements UserDetails {
     private Boolean emailVerified = false;
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * TIMESTAMPS
-     * ─────────────────────────────────────────────────────────────────────
      * Good practice: Always track when records are created/updated
      */
     @Column(name = "created_at")
@@ -121,9 +97,7 @@ public class User implements UserDetails {
     private LocalDateTime updatedAt;
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * JPA LIFECYCLE CALLBACKS
-     * ─────────────────────────────────────────────────────────────────────
      * 
      * @PrePersist runs BEFORE inserting to database
      * @PreUpdate runs BEFORE updating in database
@@ -140,9 +114,7 @@ public class User implements UserDetails {
     }
 
     /**
-     * ═══════════════════════════════════════════════════════════════════════
      * UserDetails INTERFACE IMPLEMENTATION
-     * ═══════════════════════════════════════════════════════════════════════
      * Spring Security requires UserDetails interface for authentication.
      * These methods tell Spring Security about the user.
      */

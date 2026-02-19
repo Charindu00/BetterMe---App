@@ -1,4 +1,4 @@
-package com.betterme.repository;
+﻿package com.betterme.repository;
 
 import com.betterme.model.Goal;
 import com.betterme.model.User;
@@ -11,11 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Goal Repository ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ Data access methods for Goals. ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Repository
 public interface GoalRepository extends JpaRepository<Goal, Long> {

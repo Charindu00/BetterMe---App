@@ -1,4 +1,4 @@
-package com.betterme.config;
+﻿package com.betterme.config;
 
 import com.betterme.model.Role;
 import com.betterme.model.User;
@@ -11,18 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: CommandLineRunner ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ CommandLineRunner runs code AFTER Spring Boot starts but BEFORE the app ║
- * ║ is ready to accept requests. Perfect for: ║
- * ║ ║
- * ║ 1. Database seeding (creating default data) ║
- * ║ 2. Cache warming ║
- * ║ 3. Validation checks ║
- * ║ ║
- * ║ Flow: Spring Starts → DataSeeder.run() → App Ready ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Component
 @RequiredArgsConstructor
@@ -70,11 +58,9 @@ public class DataSeeder implements CommandLineRunner {
 
         userRepository.save(admin);
 
-        log.info("═══════════════════════════════════════════════════════════");
         log.info("🔐 DEFAULT ADMIN CREATED");
         log.info("   Email:    {}", adminEmail);
         log.info("   Password: {}", adminPassword);
         log.info("   ⚠️  Change these credentials in production!");
-        log.info("═══════════════════════════════════════════════════════════");
     }
 }

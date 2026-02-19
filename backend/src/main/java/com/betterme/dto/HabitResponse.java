@@ -1,4 +1,4 @@
-package com.betterme.dto;
+﻿package com.betterme.dto;
 
 import com.betterme.model.Habit;
 import com.betterme.model.HabitFrequency;
@@ -10,17 +10,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Response DTO ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ Defines what data we send BACK to the client. ║
- * ║ ║
- * ║ Notice: No password, no user object (just userId) ║
- * ║ This prevents sensitive data leakage! ║
- * ║ ║
- * ║ The fromEntity() static method is a common pattern to convert ║
- * ║ Entity → DTO cleanly. ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Data
 @Builder
@@ -48,9 +37,7 @@ public class HabitResponse {
     private LocalDateTime createdAt;
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * FACTORY METHOD: Entity → DTO conversion
-     * ─────────────────────────────────────────────────────────────────────
      */
     public static HabitResponse fromEntity(Habit habit, boolean checkedInToday) {
         return HabitResponse.builder()

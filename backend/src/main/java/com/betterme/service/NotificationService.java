@@ -1,4 +1,4 @@
-package com.betterme.service;
+﻿package com.betterme.service;
 
 import com.betterme.model.Notification;
 import com.betterme.model.Notification.NotificationType;
@@ -69,9 +69,7 @@ public class NotificationService {
         return notificationRepository.save(notification);
     }
 
-    // ─────────────────────────────────────────────────────────────────────
     // Helper methods to create specific notification types
-    // ─────────────────────────────────────────────────────────────────────
 
     public void notifyStreak(User user, int days) {
         String message = String.format("🔥 Congratulations! You've hit a %d-day streak!", days);

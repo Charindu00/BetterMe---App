@@ -1,4 +1,4 @@
-package com.betterme.controller;
+﻿package com.betterme.controller;
 
 import com.betterme.dto.MotivationResponse;
 import com.betterme.model.User;
@@ -11,19 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Motivation Controller ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ REST API for the AI Motivation Coach powered by Gemini. ║
- * ║ ║
- * ║ Features: ║
- * ║ 1. Daily personalized motivation ║
- * ║ 2. Habit-specific tips ║
- * ║ 3. Achievement celebrations ║
- * ║ 4. Chat with Coach AI ║
- * ║ ║
- * ║ All endpoints gracefully fallback if Gemini API is unavailable. ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @RestController
 @RequestMapping("/api/motivation")
@@ -33,9 +20,7 @@ public class MotivationController {
     private final MotivationService motivationService;
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * DAILY MOTIVATION
-     * ─────────────────────────────────────────────────────────────────────
      * GET /api/motivation/daily
      * 
      * Returns personalized daily motivation based on user's stats.
@@ -48,9 +33,7 @@ public class MotivationController {
     }
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * HABIT TIPS
-     * ─────────────────────────────────────────────────────────────────────
      * POST /api/motivation/habit/{habitId}
      * 
      * Returns AI-generated tips specific to a habit.
@@ -64,9 +47,7 @@ public class MotivationController {
     }
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * CELEBRATION
-     * ─────────────────────────────────────────────────────────────────────
      * GET /api/motivation/celebration
      * 
      * Returns enthusiastic celebration message for achievements.
@@ -79,9 +60,7 @@ public class MotivationController {
     }
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * CHAT WITH COACH
-     * ─────────────────────────────────────────────────────────────────────
      * POST /api/motivation/chat
      * 
      * Have a conversation with Coach AI!

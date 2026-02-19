@@ -1,4 +1,4 @@
-package com.betterme.controller;
+﻿package com.betterme.controller;
 
 import com.betterme.dto.GoalRequest;
 import com.betterme.dto.GoalResponse;
@@ -14,20 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Goal Controller ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ REST API for goal management. ║
- * ║ ║
- * ║ Endpoints: ║
- * ║ GET /api/goals - List all goals ║
- * ║ POST /api/goals - Create goal ║
- * ║ GET /api/goals/{id} - Get goal details ║
- * ║ PUT /api/goals/{id} - Update goal ║
- * ║ DELETE /api/goals/{id} - Delete goal ║
- * ║ POST /api/goals/{id}/progress - Update progress ║
- * ║ GET /api/goals/stats - Get goal statistics ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @RestController
 @RequestMapping("/api/goals")

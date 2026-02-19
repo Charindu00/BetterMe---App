@@ -1,4 +1,4 @@
-package com.betterme.dto;
+﻿package com.betterme.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,18 +8,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Achievement System ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ Gamification! Users earn badges for milestones. ║
- * ║ ║
- * ║ Why gamification matters: ║
- * ║ 1. Increases engagement and motivation ║
- * ║ 2. Provides clear goals to work towards ║
- * ║ 3. Makes habit building more fun! ║
- * ║ ║
- * ║ This is a portfolio-worthy feature that shows thoughtful design. ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Data
 @Builder
@@ -42,9 +30,7 @@ public class Achievement {
     private double progressPercentage;
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * PREDEFINED ACHIEVEMENTS
-     * ─────────────────────────────────────────────────────────────────────
      */
     public enum AchievementType {
         // Streak achievements

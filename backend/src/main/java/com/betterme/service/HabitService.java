@@ -1,4 +1,4 @@
-package com.betterme.service;
+﻿package com.betterme.service;
 
 import com.betterme.dto.HabitRequest;
 import com.betterme.dto.HabitResponse;
@@ -19,17 +19,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Business Logic Service ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ This service contains ALL the business logic for habits: ║
- * ║ 1. CRUD operations ║
- * ║ 2. Streak calculation (the tricky part!) ║
- * ║ 3. Check-in processing ║
- * ║ ║
- * ║ @Transactional ensures database operations are atomic ║
- * ║ (all succeed or all fail together) ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Service
 @RequiredArgsConstructor
@@ -39,9 +28,7 @@ public class HabitService {
     private final HabitRepository habitRepository;
     private final HabitCheckInRepository checkInRepository;
 
-    // ═══════════════════════════════════════════════════════════════════════
     // CRUD OPERATIONS
-    // ═══════════════════════════════════════════════════════════════════════
 
     /**
      * Get all habits for the current user
@@ -137,14 +124,10 @@ public class HabitService {
         log.info("Archived habit '{}' for user {}", habit.getName(), user.getEmail());
     }
 
-    // ═══════════════════════════════════════════════════════════════════════
     // CHECK-IN & STREAK LOGIC
-    // ═══════════════════════════════════════════════════════════════════════
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * CHECK IN TO A HABIT
-     * ─────────────────────────────────────────────────────────────────────
      * This is where the STREAK MAGIC happens!
      * 
      * Logic:
@@ -177,9 +160,7 @@ public class HabitService {
                 .build();
         checkInRepository.save(checkIn);
 
-        // ─────────────────────────────────────────────────────────────────
         // STREAK CALCULATION
-        // ─────────────────────────────────────────────────────────────────
         LocalDate yesterday = today.minusDays(1);
         boolean hadYesterdayCheckIn = checkInRepository
                 .existsByHabitAndCheckInDate(habit, yesterday);
@@ -220,9 +201,7 @@ public class HabitService {
         return checkInRepository.findRecentCheckIns(habit, startDate);
     }
 
-    // ═══════════════════════════════════════════════════════════════════════
     // STATS & ANALYTICS
-    // ═══════════════════════════════════════════════════════════════════════
 
     /**
      * Get habit statistics for a user

@@ -1,4 +1,4 @@
-package com.betterme.security;
+﻿package com.betterme.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -15,19 +15,6 @@ import java.util.Map;
 import java.util.function.Function;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: JWT (JSON Web Token) ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ JWT is like a secure ID card for APIs. After login: ║
- * ║ ║
- * ║ 1. Server creates a token containing user info ║
- * ║ 2. Server signs it with a secret key (proves it's authentic) ║
- * ║ 3. Client stores token and sends it with every request ║
- * ║ 4. Server verifies token signature to authenticate ║
- * ║ ║
- * ║ JWT Structure: HEADER.PAYLOAD.SIGNATURE ║
- * ║ Example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSJ9.abc123 ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Service
 public class JwtService {
@@ -70,9 +57,7 @@ public class JwtService {
     }
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * BUILD THE ACTUAL TOKEN
-     * ─────────────────────────────────────────────────────────────────────
      * This is where the magic happens!
      */
     private String buildToken(

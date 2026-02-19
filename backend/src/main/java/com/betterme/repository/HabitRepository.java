@@ -1,4 +1,4 @@
-package com.betterme.repository;
+﻿package com.betterme.repository;
 
 import com.betterme.model.Habit;
 import com.betterme.model.User;
@@ -10,15 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Habit Repository ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ Provides data access methods for Habit entity. ║
- * ║ ║
- * ║ Notice the naming convention for query methods: ║
- * ║ findByUser → SELECT * FROM habits WHERE user_id = ? ║
- * ║ findByUserAndActive → WHERE user_id = ? AND active = ? ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Repository
 public interface HabitRepository extends JpaRepository<Habit, Long> {
@@ -52,7 +43,6 @@ public interface HabitRepository extends JpaRepository<Habit, Long> {
     /**
      * Get user's habits with highest streaks
      * 
-     * LEARNING POINT: Custom JPQL Query
      * When Spring can't generate query from method name, use @Query
      */
     @Query("SELECT h FROM Habit h WHERE h.user = ?1 ORDER BY h.currentStreak DESC")

@@ -1,4 +1,4 @@
-package com.betterme.dto;
+﻿package com.betterme.dto;
 
 import com.betterme.model.HabitFrequency;
 import jakarta.validation.constraints.NotBlank;
@@ -9,16 +9,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Request DTO ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ Defines what data the client sends to CREATE or UPDATE a habit. ║
- * ║ ║
- * ║ Why not use the Entity directly? ║
- * ║ 1. Security: Client shouldn't set id, streaks, user fields ║
- * ║ 2. Flexibility: API contract can differ from database schema ║
- * ║ 3. Validation: Different rules for create vs update ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Data
 @Builder

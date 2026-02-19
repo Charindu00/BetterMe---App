@@ -1,4 +1,4 @@
-package com.betterme.model;
+﻿package com.betterme.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,19 +10,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Check-In Entity ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ Records each time a user completes their habit. ║
- * ║ ║
- * ║ Why separate from Habit? ║
- * ║ 1. Allows historical tracking (see all past check-ins) ║
- * ║ 2. Enables analytics (check-ins per week, month, etc.) ║
- * ║ 3. Supports partial completions (future feature) ║
- * ║ ║
- * ║ Design Decision: We use LocalDate (not LocalDateTime) for check-in date ║
- * ║ because we only care about WHICH day, not the exact time. ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Entity
 @Table(name = "habit_checkins",

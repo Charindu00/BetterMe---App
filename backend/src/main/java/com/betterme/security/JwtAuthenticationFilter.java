@@ -1,4 +1,4 @@
-package com.betterme.security;
+﻿package com.betterme.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -17,19 +17,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: JWT Authentication Filter ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ This filter runs on EVERY request to check if user is authenticated. ║
- * ║ ║
- * ║ Flow: ║
- * ║ 1. Extract "Authorization: Bearer <token>" header ║
- * ║ 2. Validate the token ║
- * ║ 3. If valid, set user as authenticated ║
- * ║ 4. Pass request to next filter/controller ║
- * ║ ║
- * ║ OncePerRequestFilter ensures this runs exactly once per request ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Component
 @RequiredArgsConstructor // Lombok: creates constructor for final fields
@@ -44,9 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain) throws ServletException, IOException {
 
-        // ─────────────────────────────────────────────────────────────────
         // STEP 1: Get Authorization header
-        // ─────────────────────────────────────────────────────────────────
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String userEmail;
@@ -57,19 +42,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        // ─────────────────────────────────────────────────────────────────
         // STEP 2: Extract token (remove "Bearer " prefix)
-        // ─────────────────────────────────────────────────────────────────
         jwt = authHeader.substring(7); // "Bearer " is 7 characters
 
-        // ─────────────────────────────────────────────────────────────────
         // STEP 3: Extract email from token
-        // ─────────────────────────────────────────────────────────────────
         userEmail = jwtService.extractUsername(jwt);
 
-        // ─────────────────────────────────────────────────────────────────
         // STEP 4: Validate and authenticate
-        // ─────────────────────────────────────────────────────────────────
         // Only process if we have an email and user isn't already authenticated
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 

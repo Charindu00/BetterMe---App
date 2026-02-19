@@ -1,4 +1,4 @@
-package com.betterme.service;
+﻿package com.betterme.service;
 
 import com.betterme.dto.DashboardSummary;
 import com.betterme.dto.HabitResponse;
@@ -15,16 +15,6 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Motivation Service ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ The brain of the AI coach - builds smart prompts and returns responses. ║
- * ║ ║
- * ║ Key concepts: ║
- * ║ 1. Prompt Engineering - Crafting effective prompts for AI ║
- * ║ 2. Context Injection - Including user data in prompts ║
- * ║ 3. Fallback Handling - Works even without API key ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Service
 @RequiredArgsConstructor
@@ -46,9 +36,7 @@ public class MotivationService {
             "Each check-in is proof of your dedication. Keep it up! 💎",
             "The best time to start was yesterday. The second best time is now! ⏰");
 
-    // ═══════════════════════════════════════════════════════════════════════
     // DAILY MOTIVATION
-    // ═══════════════════════════════════════════════════════════════════════
 
     /**
      * Get personalized daily motivation based on user's stats
@@ -106,9 +94,7 @@ public class MotivationService {
                 stats.getDaysActive());
     }
 
-    // ═══════════════════════════════════════════════════════════════════════
     // HABIT-SPECIFIC TIPS
-    // ═══════════════════════════════════════════════════════════════════════
 
     /**
      * Get AI tips for a specific habit
@@ -161,9 +147,7 @@ public class MotivationService {
                 habit.getTarget() != null ? habit.getTarget() : "Complete daily");
     }
 
-    // ═══════════════════════════════════════════════════════════════════════
     // CELEBRATION
-    // ═══════════════════════════════════════════════════════════════════════
 
     /**
      * Get celebration message for achievements
@@ -214,9 +198,7 @@ public class MotivationService {
                 stats.getDaysActive());
     }
 
-    // ═══════════════════════════════════════════════════════════════════════
     // CHAT
-    // ═══════════════════════════════════════════════════════════════════════
 
     /**
      * Chat with the AI coach
@@ -269,9 +251,7 @@ public class MotivationService {
                 userMessage);
     }
 
-    // ═══════════════════════════════════════════════════════════════════════
     // FALLBACK
-    // ═══════════════════════════════════════════════════════════════════════
 
     private MotivationResponse buildFallbackResponse(MotivationType type, MotivationContext context) {
         String message = FALLBACK_QUOTES.get(new Random().nextInt(FALLBACK_QUOTES.size()));

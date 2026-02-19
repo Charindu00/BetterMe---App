@@ -1,4 +1,4 @@
-package com.betterme.service;
+﻿package com.betterme.service;
 
 import com.betterme.dto.AuthResponse;
 import com.betterme.dto.LoginRequest;
@@ -14,22 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Service Layer ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ Services contain BUSINESS LOGIC - the actual "brain" of your app. ║
- * ║ ║
- * ║ Architecture: Controller → Service → Repository → Database ║
- * ║ ║
- * ║ Controller: Handles HTTP requests, validation ║
- * ║ Service: Business logic, rules, calculations ║
- * ║ Repository: Database operations ║
- * ║ ║
- * ║ WHY separate them? ║
- * ║ 1. Single Responsibility - each class does one thing ║
- * ║ 2. Testability - easy to test services in isolation ║
- * ║ 3. Reusability - same service can be used by multiple controllers ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Service
 @RequiredArgsConstructor
@@ -41,9 +25,7 @@ public class AuthService {
         private final AuthenticationManager authenticationManager;
 
         /**
-         * ─────────────────────────────────────────────────────────────────────
          * REGISTER NEW USER
-         * ─────────────────────────────────────────────────────────────────────
          */
         public AuthResponse register(RegisterRequest request, HttpServletRequest httpRequest) {
                 // Check if email already exists
@@ -78,9 +60,7 @@ public class AuthService {
         }
 
         /**
-         * ─────────────────────────────────────────────────────────────────────
          * LOGIN EXISTING USER
-         * ─────────────────────────────────────────────────────────────────────
          */
         public AuthResponse login(LoginRequest request, HttpServletRequest httpRequest) {
                 // Authenticate user (throws exception if invalid credentials)

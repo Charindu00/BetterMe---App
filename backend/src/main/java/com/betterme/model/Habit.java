@@ -1,4 +1,4 @@
-package com.betterme.model;
+﻿package com.betterme.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -11,19 +11,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Habit Entity ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ This is the CORE entity of our app - represents a habit a user tracks. ║
- * ║ ║
- * ║ Key Features: ║
- * ║ 1. Belongs to a User (Many-to-One relationship) ║
- * ║ 2. Tracks streaks (current and longest) ║
- * ║ 3. Has frequency (DAILY, WEEKLY, etc.) ║
- * ║ ║
- * ║ Relationships: ║
- * ║ User ──1:N──▶ Habit ──1:N──▶ HabitCheckIn ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Entity
 @Table(name = "habits")
@@ -38,9 +25,7 @@ public class Habit {
     private Long id;
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * HABIT DETAILS
-     * ─────────────────────────────────────────────────────────────────────
      */
     @NotBlank(message = "Habit name is required")
     @Size(min = 2, max = 100, message = "Name must be 2-100 characters")
@@ -70,9 +55,7 @@ public class Habit {
     private String icon = "✅";
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * STREAK TRACKING
-     * ─────────────────────────────────────────────────────────────────────
      * Streaks are calculated based on consecutive check-ins
      */
     @Column(name = "current_streak")
@@ -91,9 +74,7 @@ public class Habit {
     private LocalDateTime lastCheckInDate;
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * RELATIONSHIPS
-     * ─────────────────────────────────────────────────────────────────────
      * 
      * @ManyToOne = Many habits can belong to one user
      * @JoinColumn = Creates a user_id column in habits table
@@ -103,9 +84,7 @@ public class Habit {
     private User user;
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * TIMESTAMPS
-     * ─────────────────────────────────────────────────────────────────────
      */
     @Column(name = "created_at")
     private LocalDateTime createdAt;

@@ -1,4 +1,4 @@
-package com.betterme.service;
+﻿package com.betterme.service;
 
 import com.betterme.model.Habit;
 import com.betterme.model.HabitCheckIn;
@@ -18,17 +18,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Analytics Service ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ Generates data formatted for frontend charts and visualizations. ║
- * ║ ║
- * ║ Key features: ║
- * ║ 1. Trend data for line/bar charts ║
- * ║ 2. Heatmap data (GitHub contribution style) ║
- * ║ 3. Per-habit analytics ║
- * ║ 4. Streak history ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Service
 @RequiredArgsConstructor
@@ -37,9 +26,7 @@ public class AnalyticsService {
     private final HabitRepository habitRepository;
     private final HabitCheckInRepository checkInRepository;
 
-    // ═══════════════════════════════════════════════════════════════════════
     // TREND DATA (for line/bar charts)
-    // ═══════════════════════════════════════════════════════════════════════
 
     /**
      * Get daily trend data for the last N days
@@ -148,9 +135,7 @@ public class AnalyticsService {
                 .build();
     }
 
-    // ═══════════════════════════════════════════════════════════════════════
     // HEATMAP DATA (GitHub style)
-    // ═══════════════════════════════════════════════════════════════════════
 
     /**
      * Get year heatmap data (GitHub contribution style)
@@ -237,9 +222,7 @@ public class AnalyticsService {
         return longest;
     }
 
-    // ═══════════════════════════════════════════════════════════════════════
     // PER-HABIT ANALYTICS
-    // ═══════════════════════════════════════════════════════════════════════
 
     /**
      * Get completion rates for each habit
@@ -266,9 +249,7 @@ public class AnalyticsService {
                 .collect(Collectors.toList());
     }
 
-    // ═══════════════════════════════════════════════════════════════════════
     // DTOs
-    // ═══════════════════════════════════════════════════════════════════════
 
     @Data
     @Builder

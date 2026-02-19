@@ -1,4 +1,4 @@
-import axios from 'axios';
+﻿import axios from 'axios';
 
 /**
  * API Service - Axios instance configured for our backend
@@ -37,9 +37,7 @@ api.interceptors.response.use(
 
 export default api;
 
-// ═══════════════════════════════════════════════════════════════════════════
 // API ENDPOINTS
-// ═══════════════════════════════════════════════════════════════════════════
 
 // Auth
 export const authAPI = {

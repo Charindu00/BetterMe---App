@@ -1,4 +1,4 @@
-package com.betterme.service;
+﻿package com.betterme.service;
 
 import com.betterme.dto.GoalRequest;
 import com.betterme.dto.GoalResponse;
@@ -18,16 +18,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Goal Service ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ Business logic for goal management. ║
- * ║ ║
- * ║ Key features: ║
- * ║ 1. CRUD operations for goals ║
- * ║ 2. Progress update and completion ║
- * ║ 3. Automatic habit linking ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Service
 @RequiredArgsConstructor
@@ -37,9 +27,7 @@ public class GoalService {
     private final GoalRepository goalRepository;
     private final HabitRepository habitRepository;
 
-    // ═══════════════════════════════════════════════════════════════════════
     // CRUD OPERATIONS
-    // ═══════════════════════════════════════════════════════════════════════
 
     /**
      * Get all active goals for a user
@@ -132,9 +120,7 @@ public class GoalService {
         log.info("Archived goal '{}' for user {}", goal.getTitle(), user.getEmail());
     }
 
-    // ═══════════════════════════════════════════════════════════════════════
     // PROGRESS TRACKING
-    // ═══════════════════════════════════════════════════════════════════════
 
     /**
      * Update progress on a goal
@@ -178,9 +164,7 @@ public class GoalService {
         return GoalResponse.fromEntity(saved);
     }
 
-    // ═══════════════════════════════════════════════════════════════════════
     // STATS
-    // ═══════════════════════════════════════════════════════════════════════
 
     /**
      * Get goal statistics for a user

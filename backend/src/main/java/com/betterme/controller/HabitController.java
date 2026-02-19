@@ -1,4 +1,4 @@
-package com.betterme.controller;
+﻿package com.betterme.controller;
 
 import com.betterme.dto.HabitRequest;
 import com.betterme.dto.HabitResponse;
@@ -15,23 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Habit Controller ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ REST API for habit management. ║
- * ║ ║
- * ║ All endpoints require authentication (configured in SecurityConfig) ║
- * ║ @AuthenticationPrincipal gives us the logged-in user automatically! ║
- * ║ ║
- * ║ Endpoints: ║
- * ║ GET /api/habits - List all habits ║
- * ║ POST /api/habits - Create new habit ║
- * ║ GET /api/habits/{id} - Get habit details ║
- * ║ PUT /api/habits/{id} - Update habit ║
- * ║ DELETE /api/habits/{id} - Delete habit ║
- * ║ POST /api/habits/{id}/checkin - Check in today ║
- * ║ GET /api/habits/{id}/history - Check-in history ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @RestController
 @RequestMapping("/api/habits")
@@ -40,9 +23,7 @@ public class HabitController {
 
     private final HabitService habitService;
 
-    // ═══════════════════════════════════════════════════════════════════════
     // LIST & GET
-    // ═══════════════════════════════════════════════════════════════════════
 
     /**
      * Get all habits for the logged-in user
@@ -72,9 +53,7 @@ public class HabitController {
         return ResponseEntity.ok(habitService.getUserStats(user));
     }
 
-    // ═══════════════════════════════════════════════════════════════════════
     // CREATE & UPDATE
-    // ═══════════════════════════════════════════════════════════════════════
 
     /**
      * Create a new habit
@@ -110,9 +89,7 @@ public class HabitController {
         return ResponseEntity.ok(Map.of("message", "Habit deleted successfully"));
     }
 
-    // ═══════════════════════════════════════════════════════════════════════
     // CHECK-IN
-    // ═══════════════════════════════════════════════════════════════════════
 
     /**
      * Check in to a habit for today

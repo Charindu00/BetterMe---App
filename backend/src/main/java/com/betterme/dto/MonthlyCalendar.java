@@ -1,4 +1,4 @@
-package com.betterme.dto;
+﻿package com.betterme.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,16 +10,6 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Monthly Calendar DTO ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ Provides data for a calendar visualization showing check-in history. ║
- * ║ ║
- * ║ Why a Set for checkedDates? ║
- * ║ - Fast lookup: O(1) to check if a date is checked ║
- * ║ - No duplicates: each date appears only once ║
- * ║ - Frontend can easily highlight dates in calendar ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Data
 @Builder
@@ -31,9 +21,7 @@ public class MonthlyCalendar {
     private int month;
     private String monthName; // "February", "March", etc.
 
-    // ─────────────────────────────────────────────────────────────────────
     // CALENDAR DATA
-    // ─────────────────────────────────────────────────────────────────────
     /**
      * All dates where at least one habit was checked in
      */
@@ -44,9 +32,7 @@ public class MonthlyCalendar {
      */
     private List<HabitMonthData> habits;
 
-    // ─────────────────────────────────────────────────────────────────────
     // SUMMARY
-    // ─────────────────────────────────────────────────────────────────────
     private int totalDaysInMonth;
     private int daysWithCheckIns;
     private double monthlyCompletionRate;

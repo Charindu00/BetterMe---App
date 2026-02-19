@@ -1,4 +1,4 @@
-package com.betterme.config;
+﻿package com.betterme.config;
 
 import com.betterme.repository.UserRepository;
 import com.betterme.security.JwtAuthenticationFilter;
@@ -28,16 +28,6 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Security Configuration ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ This file configures HOW Spring Security protects your app: ║
- * ║ ║
- * ║ 1. Which URLs are public vs protected ║
- * ║ 2. How passwords are encrypted ║
- * ║ 3. How users are loaded from database ║
- * ║ 4. CORS settings (allowing frontend to call backend) ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  * 
  * @Configuration = This class provides Spring beans (objects Spring manages)
  * @EnableWebSecurity = Enable Spring Security
@@ -58,9 +48,7 @@ public class SecurityConfig {
     }
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * USER DETAILS SERVICE
-     * ─────────────────────────────────────────────────────────────────────
      * Tells Spring Security HOW to load a user from database
      */
     @Bean
@@ -70,9 +58,7 @@ public class SecurityConfig {
     }
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * PASSWORD ENCODER
-     * ─────────────────────────────────────────────────────────────────────
      * BCrypt is the industry standard for password hashing
      * NEVER store plain text passwords!
      * 
@@ -85,9 +71,7 @@ public class SecurityConfig {
     }
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * AUTHENTICATION PROVIDER
-     * ─────────────────────────────────────────────────────────────────────
      * Connects UserDetailsService + PasswordEncoder
      * Used to authenticate username/password
      */
@@ -100,9 +84,7 @@ public class SecurityConfig {
     }
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * AUTHENTICATION MANAGER
-     * ─────────────────────────────────────────────────────────────────────
      * Used in AuthService to authenticate login requests
      */
     @Bean
@@ -111,9 +93,7 @@ public class SecurityConfig {
     }
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * CORS CONFIGURATION
-     * ─────────────────────────────────────────────────────────────────────
      * CORS (Cross-Origin Resource Sharing) allows your React frontend
      * (running on localhost:5173) to call your Spring Boot backend
      * (running on localhost:8080)
@@ -139,9 +119,7 @@ public class SecurityConfig {
     }
 
     /**
-     * ═══════════════════════════════════════════════════════════════════════
      * SECURITY FILTER CHAIN - THE MAIN SECURITY CONFIGURATION
-     * ═══════════════════════════════════════════════════════════════════════
      * This defines:
      * - Which URLs need authentication
      * - Which URLs are public

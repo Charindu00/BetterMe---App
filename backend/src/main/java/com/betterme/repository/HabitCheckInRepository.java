@@ -1,4 +1,4 @@
-package com.betterme.repository;
+﻿package com.betterme.repository;
 
 import com.betterme.model.Habit;
 import com.betterme.model.HabitCheckIn;
@@ -11,16 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Check-In Repository ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ Provides access to check-in history data. ║
- * ║ ║
- * ║ Key queries: ║
- * ║ 1. Check if today is checked in ║
- * ║ 2. Get check-ins for date range (history view) ║
- * ║ 3. Find yesterday's check-in (for streak calculation) ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Repository
 public interface HabitCheckInRepository extends JpaRepository<HabitCheckIn, Long> {
@@ -61,7 +51,6 @@ public interface HabitCheckInRepository extends JpaRepository<HabitCheckIn, Long
     /**
      * Get check-ins for the last N days
      * 
-     * LEARNING POINT: @Query with parameters
      * ?1 = first parameter (habit)
      * ?2 = second parameter (startDate)
      */

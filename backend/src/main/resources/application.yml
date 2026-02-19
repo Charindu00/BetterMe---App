@@ -1,20 +1,14 @@
-# ═══════════════════════════════════════════════════════════════════════════
-# LEARNING POINT: Spring Profiles
-# ───────────────────────────────────────────────────────────────────────────
-# Spring profiles allow DIFFERENT configurations for different environments:
+﻿# Spring profiles allow DIFFERENT configurations for different environments:
 # - default: Used for local development with PostgreSQL
 # - docker: Used when running inside Docker container
 #
 # Set active profile via: SPRING_PROFILES_ACTIVE=docker
-# ═══════════════════════════════════════════════════════════════════════════
 
 spring:
   application:
     name: betterme-backend
   
-  # ─────────────────────────────────────────────────────────────────────────
   # DATABASE CONFIGURATION - PostgreSQL
-  # ─────────────────────────────────────────────────────────────────────────
   # Using PostgreSQL for data persistence (no more data loss!)
   # For local dev: Run docker-compose -f docker-compose.dev.yml up -d
   
@@ -24,9 +18,7 @@ spring:
     username: betterme
     password: betterme123
   
-  # ─────────────────────────────────────────────────────────────────────────
   # JPA / HIBERNATE CONFIGURATION  
-  # ─────────────────────────────────────────────────────────────────────────
   jpa:
     hibernate:
       ddl-auto: update                    # Update schema, keep data
@@ -38,9 +30,7 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
   
-  # ─────────────────────────────────────────────────────────────────────────
   # EMAIL CONFIGURATION (Gmail SMTP)
-  # ─────────────────────────────────────────────────────────────────────────
   mail:
     host: smtp.gmail.com
     port: 587
@@ -57,40 +47,29 @@ spring:
           timeout: 5000
           writetimeout: 5000
 
-# ─────────────────────────────────────────────────────────────────────────────
 # SERVER CONFIGURATION
-# ─────────────────────────────────────────────────────────────────────────────
 server:
   port: 8080
 
-# ─────────────────────────────────────────────────────────────────────────────
 # JWT CONFIGURATION
-# ─────────────────────────────────────────────────────────────────────────────
 jwt:
   secret: ${JWT_SECRET:bXlTdXBlclNlY3JldEtleUZvckpXVHRva2VuR2VuZXJhdGlvblRoaXNTaG91bGRCZUxvbmdFbm91Z2gxMjM0NTY3ODk=}
   expiration: 86400000
 
-# ─────────────────────────────────────────────────────────────────────────────
 # ADMIN CONFIGURATION
-# ─────────────────────────────────────────────────────────────────────────────
 # Default admin created on startup (if doesn't exist)
 admin:
   email: ${ADMIN_EMAIL:admin@betterme.com}
   password: ${ADMIN_PASSWORD:admin123}
   name: ${ADMIN_NAME:Admin User}
 
-# ─────────────────────────────────────────────────────────────────────────────
 # GEMINI AI CONFIGURATION
-# ─────────────────────────────────────────────────────────────────────────────
 gemini:
   api:
     key: ${GEMINI_API_KEY:your-api-key-here}
     url: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent
 
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # APP CONFIGURATION
-# ─────────────────────────────────────────────────────────────────────────────
 app:
   frontend-url: ${FRONTEND_URL:http://localhost:5173}

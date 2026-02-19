@@ -1,4 +1,4 @@
-package com.betterme.controller;
+﻿package com.betterme.controller;
 
 import com.betterme.model.User;
 import com.betterme.service.AnalyticsService;
@@ -12,13 +12,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Analytics Controller ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ REST API for chart data and visualizations. ║
- * ║ ║
- * ║ Returns data formatted for Chart.js, Recharts, etc. ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @RestController
 @RequestMapping("/api/analytics")
@@ -28,9 +21,7 @@ public class AnalyticsController {
     private final AnalyticsService analyticsService;
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * DAILY TRENDS
-     * ─────────────────────────────────────────────────────────────────────
      * GET /api/analytics/trends?period=daily&days=30
      * GET /api/analytics/trends?period=weekly&weeks=12
      * 
@@ -53,9 +44,7 @@ public class AnalyticsController {
     }
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * YEAR HEATMAP
-     * ─────────────────────────────────────────────────────────────────────
      * GET /api/analytics/heatmap
      * GET /api/analytics/heatmap?year=2025
      * 
@@ -71,9 +60,7 @@ public class AnalyticsController {
     }
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * PER-HABIT ANALYTICS
-     * ─────────────────────────────────────────────────────────────────────
      * GET /api/analytics/habits
      * GET /api/analytics/habits?days=30
      * 

@@ -1,4 +1,4 @@
-package com.betterme.dto;
+﻿package com.betterme.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,16 +9,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Weekly Progress DTO ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ Shows the last 7 days of habit completion. ║
- * ║ ║
- * ║ Frontend can use this for: ║
- * ║ - Bar chart showing daily completions ║
- * ║ - Week-at-a-glance view ║
- * ║ - Progress trends ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @Data
 @Builder

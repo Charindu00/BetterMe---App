@@ -1,4 +1,4 @@
-package com.betterme.controller;
+﻿package com.betterme.controller;
 
 import com.betterme.dto.*;
 import com.betterme.model.User;
@@ -12,16 +12,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * ╔══════════════════════════════════════════════════════════════════════════╗
- * ║ LEARNING POINT: Dashboard Controller ║
- * ╠══════════════════════════════════════════════════════════════════════════╣
- * ║ Provides endpoints for the progress dashboard visualizations. ║
- * ║ ║
- * ║ Why a separate controller from HabitController? ║
- * ║ 1. Single Responsibility - dashboard logic is distinct from CRUD ║
- * ║ 2. Different caching needs - dashboard data can be cached longer ║
- * ║ 3. Cleaner API design - /api/dashboard/* vs /api/habits/* ║
- * ╚══════════════════════════════════════════════════════════════════════════╝
  */
 @RestController
 @RequestMapping("/api/dashboard")
@@ -31,9 +21,7 @@ public class DashboardController {
     private final DashboardService dashboardService;
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * SUMMARY - Quick overview stats
-     * ─────────────────────────────────────────────────────────────────────
      * GET /api/dashboard/summary
      * 
      * Returns: total habits, completed today, total streaks, etc.
@@ -45,9 +33,7 @@ public class DashboardController {
     }
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * WEEKLY PROGRESS - Last 7 days breakdown
-     * ─────────────────────────────────────────────────────────────────────
      * GET /api/dashboard/weekly
      * 
      * Returns: daily completion data for charting
@@ -59,9 +45,7 @@ public class DashboardController {
     }
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * MONTHLY CALENDAR - Calendar view data
-     * ─────────────────────────────────────────────────────────────────────
      * GET /api/dashboard/monthly
      * GET /api/dashboard/monthly?year=2026&month=2
      * 
@@ -82,9 +66,7 @@ public class DashboardController {
     }
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * STREAKS - Habit leaderboard by streak
-     * ─────────────────────────────────────────────────────────────────────
      * GET /api/dashboard/streaks
      * 
      * Returns: habits sorted by current streak (descending)
@@ -96,9 +78,7 @@ public class DashboardController {
     }
 
     /**
-     * ─────────────────────────────────────────────────────────────────────
      * ACHIEVEMENTS - Gamification badges
-     * ─────────────────────────────────────────────────────────────────────
      * GET /api/dashboard/achievements
      * 
      * Returns: all achievements with progress (unlocked first)
