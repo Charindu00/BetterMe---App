@@ -1,4 +1,4 @@
-﻿package com.betterme.repository;
+package com.betterme.repository;
 
 import com.betterme.model.Habit;
 import com.betterme.model.User;

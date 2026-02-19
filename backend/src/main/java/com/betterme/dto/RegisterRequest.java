@@ -1,4 +1,4 @@
-﻿package com.betterme.dto;
+package com.betterme.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

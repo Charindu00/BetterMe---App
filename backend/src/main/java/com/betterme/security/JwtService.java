@@ -1,4 +1,4 @@
-﻿package com.betterme.security;
+package com.betterme.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

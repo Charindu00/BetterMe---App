@@ -1,4 +1,4 @@
-﻿package com.betterme.config;
+package com.betterme.config;
 
 import com.betterme.repository.UserRepository;
 import com.betterme.security.JwtAuthenticationFilter;

@@ -1,4 +1,4 @@
-﻿package com.betterme.dto;
+package com.betterme.dto;
 
 import com.betterme.model.Habit;
 import com.betterme.model.HabitFrequency;

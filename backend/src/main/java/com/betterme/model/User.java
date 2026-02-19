@@ -1,4 +1,4 @@
-﻿package com.betterme.model;
+package com.betterme.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;

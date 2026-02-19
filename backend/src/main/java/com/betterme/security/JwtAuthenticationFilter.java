@@ -1,10 +1,11 @@
-﻿package com.betterme.security;
+package com.betterme.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,10 +17,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-/**
- */
 @Component
-@RequiredArgsConstructor // Lombok: creates constructor for final fields
+@RequiredArgsConstructor
+@Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
@@ -31,50 +31,37 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain) throws ServletException, IOException {
 
-        // STEP 1: Get Authorization header
         final String authHeader = request.getHeader("Authorization");
-        final String jwt;
-        final String userEmail;
 
         // If no Authorization header or doesn't start with "Bearer ", skip
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response); // Continue to next filter
+            filterChain.doFilter(request, response);
             return;
         }
 
-        // STEP 2: Extract token (remove "Bearer " prefix)
-        jwt = authHeader.substring(7); // "Bearer " is 7 characters
+        try {
+            final String jwt = authHeader.substring(7);
+            final String userEmail = jwtService.extractUsername(jwt);
 
-        // STEP 3: Extract email from token
-        userEmail = jwtService.extractUsername(jwt);
+            if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
-        // STEP 4: Validate and authenticate
-        // Only process if we have an email and user isn't already authenticated
-        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
-            // Load user from database
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-
-            // Check if token is valid
-            if (jwtService.isTokenValid(jwt, userDetails)) {
-
-                // Create authentication token
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        userDetails,
-                        null, // credentials (null because we already validated)
-                        userDetails.getAuthorities() // roles/permissions
-                );
-
-                // Add extra details from the request
-                authToken.setDetails(
-                        new WebAuthenticationDetailsSource().buildDetails(request));
-
-                // SET THE USER AS AUTHENTICATED! 🎉
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+                if (jwtService.isTokenValid(jwt, userDetails)) {
+                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                            userDetails,
+                            null,
+                            userDetails.getAuthorities());
+                    authToken.setDetails(
+                            new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                }
             }
+        } catch (Exception e) {
+            // Token is invalid or expired — continue as unauthenticated request.
+            // Public endpoints (like /api/auth/**) will still work fine.
+            log.debug("JWT processing failed: {}", e.getMessage());
         }
 
-        // Continue to next filter in chain
         filterChain.doFilter(request, response);
     }
 }

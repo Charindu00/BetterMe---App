@@ -1,4 +1,4 @@
-﻿# Spring profiles allow DIFFERENT configurations for different environments:
+# Spring profiles allow DIFFERENT configurations for different environments:
 # - default: Used for local development with PostgreSQL
 # - docker: Used when running inside Docker container
 #

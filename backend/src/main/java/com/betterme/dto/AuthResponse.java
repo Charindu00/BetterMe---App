@@ -1,4 +1,4 @@
-﻿package com.betterme.dto;
+package com.betterme.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-﻿package com.betterme.config;
+package com.betterme.config;
 
 import com.betterme.model.Role;
 import com.betterme.model.User;

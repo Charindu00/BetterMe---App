@@ -1,4 +1,4 @@
-﻿import axios from 'axios';
+import axios from 'axios';
 
 /**
  * API Service - Axios instance configured for our backend

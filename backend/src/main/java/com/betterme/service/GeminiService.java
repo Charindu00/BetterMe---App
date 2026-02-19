@@ -1,4 +1,4 @@
-﻿package com.betterme.service;
+package com.betterme.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

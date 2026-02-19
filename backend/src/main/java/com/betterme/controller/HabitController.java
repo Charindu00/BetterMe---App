@@ -1,4 +1,4 @@
-﻿package com.betterme.controller;
+package com.betterme.controller;
 
 import com.betterme.dto.HabitRequest;
 import com.betterme.dto.HabitResponse;

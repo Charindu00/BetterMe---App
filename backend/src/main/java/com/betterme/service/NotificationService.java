@@ -1,4 +1,4 @@
-﻿package com.betterme.service;
+package com.betterme.service;
 
 import com.betterme.model.Notification;
 import com.betterme.model.Notification.NotificationType;

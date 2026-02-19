@@ -1,4 +1,4 @@
-﻿
+
 services:
   # PostgreSQL Database
   betterme-db:

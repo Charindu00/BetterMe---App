@@ -1,4 +1,4 @@
-﻿package com.betterme.service;
+package com.betterme.service;
 
 import com.betterme.dto.AuthResponse;
 import com.betterme.dto.LoginRequest;
